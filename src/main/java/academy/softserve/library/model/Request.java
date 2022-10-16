@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,12 +24,12 @@ public class Request extends BaseEntity {
     private BookInstance bookInstance;
 
     @NotNull
-    private Date requestDate = new Date();
+    private LocalDate requestDate = LocalDate.now();
 
-    private Date shouldBeReturn;
+    private LocalDate shouldBeReturn;
 
-    private Date getBookDate;
+    private LocalDate getBookDate;
 
-    private Date returnBookDate;
+    private LocalDate returnBookDate;
 
 }
