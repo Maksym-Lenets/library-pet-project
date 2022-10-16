@@ -10,12 +10,14 @@
 
     <properties>
         <spring-webmvc.version>5.3.23</spring-webmvc.version>
+        <spring-orm.version>5.3.23</spring-orm.version>
         <servlet.version>4.0.1</servlet.version>
         <jstl.version>1.2</jstl.version>
         <lombok.version>1.18.24</lombok.version>
         <hibernate.version>5.4.33.Final</hibernate.version>
         <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
         <mysql.version>8.0.30</mysql.version>
+        <tomcat-dbcp.version>9.0.68</tomcat-dbcp.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -56,6 +58,18 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring-orm.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>${tomcat-dbcp.version}</version>
         </dependency>
 
         <dependency>
