@@ -26,6 +26,8 @@ public class Request extends BaseEntity {
     @NotNull
     private Date requestDate = new Date();
 
+    private Date shouldBeReturn;
+
     private Date getBookDate;
 
     private Date returnBookDate;
