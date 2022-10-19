@@ -1,4 +1,4 @@
-// USER
+-- USER
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('1', 'Андрій', 'Мельник', 'amlnik', '1234', 'a@gmail.com', '2000-05-06', '2022-10-19', 'manager');
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('2', 'Петро', 'Швець', 'pschvec', '1234', 'b@gmail.com', '2000-05-06', '2022-10-19', 'manager');
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('3', 'Андрій', 'Кравець', 'akravec', '1234', 'c@gmail.com', '2000-05-06', '2022-10-19', 'reader');
@@ -8,14 +8,14 @@ INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `pass
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('7', 'Марина', 'Візник', 'mvizkik', '1234', 'g@gmail.com', '2000-05-06', '2022-10-19', 'reader');
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('8', 'Максим', 'Ковач', 'mkovach', '1234', 'h@gmail.com', '2000-05-06', '2022-10-19', 'reader');
 
-// AUTHOR
+-- AUTHOR
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('1', 'William', 'Shakespeare ');
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('2', 'James', 'Joyce');
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('3', 'William', 'Faulkner');
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('4', 'Charles', 'Dickens');
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('5', 'Henry', 'James');
 
-//BOOK
+-- BOOK
 INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VALUES ('1', 'book1', '1', '1');
 INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VALUES ('2', 'book2', '2', '1');
 INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VALUES ('3', 'book3', '3', '1');
@@ -25,7 +25,7 @@ INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VA
 INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VALUES ('7', 'book7', '2', '2');
 INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`) VALUES ('8', 'book8', '3', '2');
 
-//BOOK_AUTHOR
+-- BOOK_AUTHOR
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('1', '2');
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('1', '3');
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('2', '1');
@@ -38,7 +38,7 @@ INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('5', '2'
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('5', '4');
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('7', '5');
 
-//COPIES_OF_BOOK
+-- COPIES_OF_BOOK
 INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('1', '1', 'UNAVAILABLE');
 INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('2', '2', 'AVAILABLE');
 INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('3', '3', 'UNAVAILABLE');
@@ -52,7 +52,7 @@ INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('10'
 INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('11', '8', 'UNAVAILABLE');
 INSERT INTO `library`.`copies_of_books` (`id`, `book_id`, `status`) VALUES ('12', '8', 'UNAVAILABLE');
 
-//HISTORY_OF_REQUEST
+-- HISTORY_OF_REQUEST
 INSERT INTO `library`.`history_of_request` (`id`, `user_id`, `book_instance_id`, `date_of_request`, `get_book_date`) VALUES ('1', '1', '1', '2022-10-19', NULL);
 INSERT INTO `library`.`history_of_request` (`id`, `user_id`, `book_instance_id`, `date_of_request`, `get_book_date`) VALUES ('2', '1', '3', '2022-10-19', NULL);
 INSERT INTO `library`.`history_of_request` (`id`, `user_id`, `book_instance_id`, `date_of_request`, `get_book_date`) VALUES ('3', '2', '4', '2022-10-19', NULL);
