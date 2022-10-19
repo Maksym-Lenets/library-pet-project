@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS history_of_request
 
     book_instance_id INT  NOT NULL,
     date_of_request  DATE NOT NULL,
-    get_book_date     DATE NOT NULL,
-    should_be_return DATE NOT NULL,
+    get_book_date    DATE,
+    should_be_return DATE,
     return_date      DATE,
     FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (book_instance_id) REFERENCES copies_of_books (id)
