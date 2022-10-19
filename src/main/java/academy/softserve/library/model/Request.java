@@ -14,11 +14,11 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @NoArgsConstructor
+@Table(name = "history_of_request")
 public class Request extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
