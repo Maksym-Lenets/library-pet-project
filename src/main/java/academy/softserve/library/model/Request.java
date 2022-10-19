@@ -29,15 +29,12 @@ public class Request extends BaseEntity {
     @Column(name = "date_of_request")
     private LocalDate requestDate = LocalDate.now();
 
-    @NotNull
     @Column(name = "should_be_return")
     private LocalDate shouldBeReturn;
 
-    @NotNull
     @Column(name = "get_book_date")
     private LocalDate getBookDate;
 
-    @NotNull
     @Column(name = "return_date")
     private LocalDate returnBookDate;
 
