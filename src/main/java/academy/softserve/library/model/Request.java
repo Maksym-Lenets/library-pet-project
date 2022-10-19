@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -17,19 +16,29 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Request extends BaseEntity {
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bookInstance_id")
     private BookInstance bookInstance;
 
     @NotNull
+    @Column(name = "date_of_request")
     private LocalDate requestDate = LocalDate.now();
 
+    @NotNull
+    @Column(name = "should_be_return")
     private LocalDate shouldBeReturn;
 
+    @NotNull
+    @Column(name = "get_book_date")
     private LocalDate getBookDate;
 
+    @NotNull
+    @Column(name = "return_date")
     private LocalDate returnBookDate;
 
 }
