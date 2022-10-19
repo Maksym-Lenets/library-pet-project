@@ -18,8 +18,15 @@ CREATE TABLE IF NOT EXISTS book
     number_of_copies INT         NOT NULL,
     FOREIGN KEY (author_id) REFERENCES author (id)
 );
+CREATE TABLE IF NOT EXISTS copies_of_books
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    book_id INT NOT NULL,
+    status  ENUM ('AVAILABLE','UNAVAILABLE'),
+    FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE
+);
 
-CREATE TABLE IF NOT EXISTS user_account
+CREATE TABLE IF NOT EXISTS user
 (
     id                   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name           VARCHAR(50) NOT NULL,
@@ -51,15 +58,6 @@ CREATE TABLE IF NOT EXISTS history_of_request
     get_book_date     DATE NOT NULL,
     should_be_return DATE NOT NULL,
     return_date      DATE,
-    FOREIGN KEY (user_id) REFERENCES user_account (id),
-    FOREIGN KEY (book_instance_id) REFERENCES book_instance (id)
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (book_instance_id) REFERENCES copies_of_books (id)
 );
-
-CREATE TABLE IF NOT EXISTS copies_of_books
-(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    book_id INT NOT NULL,
-    status  ENUM ('AVAILABLE','UNAVAILABLE'),
-    FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE
-);
-
