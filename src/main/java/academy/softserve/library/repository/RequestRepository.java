@@ -1,4 +1,6 @@
 package academy.softserve.library.repository;
 
-public interface RequestRepository extends GenericRepository<RequestRepository, Long> {
+import academy.softserve.library.model.Request;
+
+public interface RequestRepository extends GenericRepository<Request, Long> {
 }

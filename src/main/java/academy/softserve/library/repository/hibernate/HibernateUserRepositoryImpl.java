@@ -1,5 +1,6 @@
 package academy.softserve.library.repository.hibernate;
 
+import academy.softserve.library.model.User;
 import academy.softserve.library.repository.UserRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,17 @@ public class HibernateUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<UserRepository> getAll() {
+    public List<User> getAll() {
         return null;
     }
 
     @Override
-    public UserRepository get(Long id) {
+    public User get(Long id) {
         return null;
     }
 
     @Override
-    public UserRepository saveOrUpdate(UserRepository element) {
+    public User saveOrUpdate(User element) {
         return null;
     }
 
