@@ -71,6 +71,13 @@
             <artifactId>tomcat-dbcp</artifactId>
             <version>${tomcat-dbcp.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.hibernate.validator</groupId>
