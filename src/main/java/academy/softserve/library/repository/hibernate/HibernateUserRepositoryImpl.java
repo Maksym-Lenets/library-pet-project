@@ -26,17 +26,12 @@ public class HibernateUserRepositoryImpl implements UserRepository {
     }
 
 
-    public boolean addUser(User user) {
+    public User addUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         User existUser = session.load(User.class, user.getEmail());
-        if (existUser == null) {
-            session.persist(user);
-            logger.info("User is successfully added.");
-            return true;
-        } else {
-            logger.info("User with email " + user.getEmail() + " already exists");
-            return false;
-        }
+        session.persist(user);
+        logger.info("User is successfully added.");
+        return user;
     }
 
     @Override

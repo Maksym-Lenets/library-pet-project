@@ -12,13 +12,13 @@ import java.util.Optional;
 public interface UserService {
     User createUser(User user) throws UserNotFoundException, SQLException, UserAlreadyExistException;
 
-    User getUserById(int id) throws UserNotFoundException;
+    User getUserById(long id) throws UserNotFoundException;
 
     User getUserByEmail(String email) throws UserNotFoundException;
 
     boolean checkIfExist(String email) throws SQLException;
 
-    User login(String email, String password) throws IncorrectCredsExceptions;
+    User login(String email, String password) throws IncorrectCredsExceptions, UserNotFoundException;
 
-    void deleteUser(int id) throws UserNotFoundException;
+    void deleteUser(long id) throws UserNotFoundException;
 }
