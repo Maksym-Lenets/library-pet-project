@@ -24,7 +24,7 @@
         </b>
         <br>
         <br>
-        <a href="/books/edit">
+        <a href="/books/edit/0">
             <button class="btn btn-primary">
                 <span class="fa fa-plus"></span>
                 Add Book

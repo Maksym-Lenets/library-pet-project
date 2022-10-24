@@ -1,13 +1,16 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Book;
+import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,9 +19,12 @@ import java.util.stream.Collectors;
 public class BookController {
     private BookService bookService;
 
+    private AuthorService authorService;
+
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
 
@@ -48,13 +54,32 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
-        BookDto book;
+        Book book;
+        BookDto bookDto;
+        AuthorDto authorDto;
+        List<AuthorDto> coAuthors;
+        List<AuthorDto> allAuthors;
         if (id == null || id.equals(0L)) {
-            book = new BookDto();
+            bookDto = new BookDto();
+            authorDto = new AuthorDto();
+            coAuthors = new ArrayList<>();
         } else {
-            book = BookDto.toBookDto(bookService.get(id));
+            book = bookService.get(id);
+            bookDto = BookDto.toBookDto(book);
+            authorDto = AuthorDto.toAuthorDto(book.getAuthor());
+            coAuthors = book.getCoAuthors().stream()
+                    .map(AuthorDto::toAuthorDto)
+                    .collect(Collectors.toList());
         }
-        model.addAttribute("book", book);
+        allAuthors = authorService.getAll().stream()
+                .map(AuthorDto::toAuthorDto)
+                .collect(Collectors.toList());
+
+        model.addAttribute("book", bookDto);
+        model.addAttribute("author", authorDto);
+        model.addAttribute("coAuthors", coAuthors);
+        model.addAttribute("allAuthors", allAuthors);
+
         return "bookForm";
     }
 
