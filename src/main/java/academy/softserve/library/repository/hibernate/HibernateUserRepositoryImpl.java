@@ -3,7 +3,6 @@ package academy.softserve.library.repository.hibernate;
 import academy.softserve.library.model.User;
 import academy.softserve.library.repository.UserRepository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import java.util.List;
 
 
 @Repository
-//@Slf4j(topic = "User Repository")
 public class HibernateUserRepositoryImpl implements UserRepository {
     private final SessionFactory sessionFactory;
 
