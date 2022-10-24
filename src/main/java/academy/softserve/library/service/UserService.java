@@ -10,15 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    User createUser(User user) throws UserNotFoundException, SQLException, UserAlreadyExistException;
 
-    User getUserById(long id) throws UserNotFoundException;
+    List<User> getAll();
+    User getUserById(long id) ;
 
-    User getUserByEmail(String email) throws UserNotFoundException;
+    User getUserByEmail(String email);
 
-    boolean checkIfExist(String email) throws SQLException;
+    User login(String email, String password) ;
 
-    User login(String email, String password) throws IncorrectCredsExceptions, UserNotFoundException;
-
-    void deleteUser(long id) throws UserNotFoundException;
+    boolean deleteUser(long id);
 }

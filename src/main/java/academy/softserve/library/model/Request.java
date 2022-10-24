@@ -22,7 +22,7 @@ public class Request extends BaseEntity {
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookInstance_id")
+    @JoinColumn(name = "book_instance_id")
     private BookInstance bookInstance;
 
     @NotNull

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j(topic = "User Service")
+//@Slf4j(topic = "User Service")
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -27,63 +27,61 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) throws UserNotFoundException, SQLException, UserAlreadyExistException {
-        if (checkIfExist(user.getEmail())) {
-            log.info("Created new user" + user);
-            return userRepository.addUser(user);
-        } else {
-            log.error("User with email " + user.getEmail() + " is already exist");
-            throw new UserAlreadyExistException("User with email " + user.getEmail() + " is already exist!");
-        }
+    public List<User> getAll() {
+        return userRepository.getAll();
     }
 
     @Override
-    public User getUserById(long id) throws UserNotFoundException {
+    @Transactional
+    public User getUserById(long id) {
         Optional<User> byId = Optional.ofNullable(userRepository.get(id));
         if (byId.isPresent()) {
-            log.info("Information about user with id " + id + " ready for you");
+            // log.info("Information about user with id " + id + " ready for you");
             return byId.get();
         } else {
-            log.error("User with id " + id + " is not exist");
-            throw new UserNotFoundException("User with id " + id + " is not exist");
+            // log.error("User with id " + id + " is not exist");
+            return null;
         }
     }
 
     @Override
-    public User getUserByEmail(String email) throws UserNotFoundException {
-        Optional<User> userByEmail = userRepository.findUserByEmail(email);
+    @Transactional
+    public User getUserByEmail(String email) {
+        Optional<User> userByEmail = Optional.ofNullable(userRepository.findUserByEmail(email));
         if (userByEmail.isPresent()) {
+            // log.info("Information about user with email " + email + " ready for you");
             return userByEmail.get();
-        } else throw new UserNotFoundException("User with email" + email + " is not exist");
+        } else {
+            // log.error("User with email " + email + " is not exist");
+            return null;
+        }
     }
 
-    @Override
-    public boolean checkIfExist(String email) throws SQLException {
-        Optional<User> byId = userRepository.findUserByEmail(email);
-        return byId.isEmpty();
-    }
 
     @Override
-    public User login(String email, String password) throws IncorrectCredsExceptions, UserNotFoundException {
-        Optional<User> byEmail = userRepository.findUserByEmail(email);
+    @Transactional
+    public User login(String email, String password) {
+        Optional<User> byEmail = Optional.ofNullable(userRepository.findUserByEmail(email));
         if (byEmail.isPresent()) {
             User user = byEmail.get();
             if (user.getPassword().equals(password)) {
-                log.info("User " + user.getEmail() + " entered");
+                //   log.info("User " + user.getEmail() + " entered");
                 return user;
-            } else throw new IncorrectCredsExceptions("You entered incorrect password");
-        } else throw new UserNotFoundException("User with email" + email + " is not exist");
+            } else {
+                //  log.error("Incorrect password");
+                return null;
+            }
+        } else {
+            //  log.error("User with email " + email + " is not exist");
+            return null;
+        }
     }
 
     @Override
-    public void deleteUser(long id) throws UserNotFoundException {
-        Optional<User> byId = Optional.ofNullable(userRepository.get(id));
-        if (byId.isPresent()) {
-            userRepository.remove(id);
-            log.info("User with id " + id + " was deleted");
-        } else {
-            log.error("User with id " + id + " is not exist");
-            throw new UserNotFoundException("User with id " + id + " is not exist");
-        }
+    @Transactional
+    public boolean deleteUser(long id) {
+        return  userRepository.remove(id);
+
+
     }
 }

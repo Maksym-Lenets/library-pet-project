@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -32,18 +33,15 @@ public class User extends BaseEntity {
 
     @NotNull
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
 
     @Email
     @NotBlank
     @Column(name = "email")
     @Size(max = 50)
+    @UniqueElements
     private String email;
 
-    @NotBlank
-    @Column(name = "username")
-    @Size(min = 5, max = 50)
-    private String userName;
 
     @NotBlank
     @Column(name = "password")
@@ -57,7 +55,7 @@ public class User extends BaseEntity {
 
     @NotNull
     @Column(name = "date_of_registration")
-    private LocalDate registrationDate = LocalDate.now();
+    private LocalDate registrationDate;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Request> requests;
