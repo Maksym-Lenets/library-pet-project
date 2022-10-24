@@ -3,10 +3,12 @@ package academy.softserve.library.dto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BookDto {
 
     private Long id;
@@ -15,9 +17,6 @@ public class BookDto {
 
     //TODO replace with DTO
     private Author author;
-
-    private BookDto() {
-    }
 
     public static BookDto toBookDto(Book book) {
         BookDto bookDto = new BookDto();

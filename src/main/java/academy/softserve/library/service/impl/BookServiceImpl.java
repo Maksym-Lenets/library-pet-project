@@ -5,6 +5,7 @@ import academy.softserve.library.repository.BookRepository;
 import academy.softserve.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,26 +21,37 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
+    @Transactional
     public List<Book> getAll() {
         return bookRepository.getAll();
     }
 
     @Override
+    @Transactional
+    public List<Book> getAllAvailable() {
+        return bookRepository.getAllAvailable();
+    }
+
+    @Override
+    @Transactional
     public Book get(Long id) {
         return bookRepository.get(id);
     }
 
     @Override
+    @Transactional
     public Book save(Book book) {
         return bookRepository.saveOrUpdate(book);
     }
 
     @Override
+    @Transactional
     public Book update(Book book) {
         return bookRepository.saveOrUpdate(book);
     }
 
     @Override
+    @Transactional
     public boolean remove(Long id) {
         return bookRepository.remove(id);
     }
