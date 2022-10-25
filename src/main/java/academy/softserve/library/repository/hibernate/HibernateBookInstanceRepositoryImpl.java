@@ -29,7 +29,7 @@ public class HibernateBookInstanceRepositoryImpl implements BookInstanceReposito
     @Override
     public BookInstance get(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.load(BookInstance.class, id);
+        return session.get(BookInstance.class, id);
     }
 
     @Override
