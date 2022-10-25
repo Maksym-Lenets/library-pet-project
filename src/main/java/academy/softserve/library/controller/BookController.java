@@ -1,6 +1,5 @@
 package academy.softserve.library.controller;
 
-import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Book;
 import academy.softserve.library.service.AuthorService;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,29 +54,14 @@ public class BookController {
     public String editBook(@PathVariable("id") Long id, Model model) {
         Book book;
         BookDto bookDto;
-        AuthorDto authorDto;
-        List<AuthorDto> coAuthors;
-        List<AuthorDto> allAuthors;
         if (id == null || id.equals(0L)) {
             bookDto = new BookDto();
-            authorDto = new AuthorDto();
-            coAuthors = new ArrayList<>();
+
         } else {
             book = bookService.get(id);
             bookDto = BookDto.toBookDto(book);
-            authorDto = AuthorDto.toAuthorDto(book.getAuthor());
-            coAuthors = book.getCoAuthors().stream()
-                    .map(AuthorDto::toAuthorDto)
-                    .collect(Collectors.toList());
         }
-        allAuthors = authorService.getAll().stream()
-                .map(AuthorDto::toAuthorDto)
-                .collect(Collectors.toList());
-
         model.addAttribute("book", bookDto);
-        model.addAttribute("author", authorDto);
-        model.addAttribute("coAuthors", coAuthors);
-        model.addAttribute("allAuthors", allAuthors);
 
         return "bookForm";
     }
