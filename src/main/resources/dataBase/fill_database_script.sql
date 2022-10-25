@@ -1,12 +1,12 @@
 -- USER
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('1', 'Андрій', 'Мельник', 'amlnik', '1234', 'a@gmail.com', '2000-05-06', '2022-10-19', 'manager');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('2', 'Петро', 'Швець', 'pschvec', '1234', 'b@gmail.com', '2000-05-06', '2022-10-19', 'manager');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('3', 'Андрій', 'Кравець', 'akravec', '1234', 'c@gmail.com', '2000-05-06', '2022-10-19', 'reader');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('4', 'Олександр', 'Боднар', 'obodnar', '1234', 'd@gmail.com', '2000-05-06', '2022-10-19', 'reader');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('5', 'Сергій', 'Ведмідь', 'svedmid', '1234', 'e@gmail.com', '2000-05-06', '2022-10-19', 'reader');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('6', 'Олександра', 'Зима', 'ozima', '1234', 'f@gmail.com', '2000-05-06', '2022-10-19', 'reader');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('7', 'Марина', 'Візник', 'mvizkik', '1234', 'g@gmail.com', '2000-05-06', '2022-10-19', 'reader');
-INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `username`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('8', 'Максим', 'Ковач', 'mkovach', '1234', 'h@gmail.com', '2000-05-06', '2022-10-19', 'reader');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('1', 'Андрій', 'Мельник', '1234', 'a@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('2', 'Петро', 'Швець', '1234', 'b@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('3', 'Андрій', 'Кравець', '1234', 'c@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('4', 'Олександр', 'Боднар', '1234', 'd@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('5', 'Сергій', 'Ведмідь', '1234', 'e@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('6', 'Олександра', 'Зима', '1234', 'f@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('7', 'Марина', 'Візник', '1234', 'g@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`, `role`) VALUES ('8', 'Максим', 'Ковач', '1234', 'h@gmail.com', '2000-05-06', '2022-10-19', 'READER');
 
 -- AUTHOR
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('1', 'William', 'Shakespeare ');

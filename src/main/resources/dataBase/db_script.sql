@@ -32,12 +32,11 @@ CREATE TABLE IF NOT EXISTS user
     id                   INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name           VARCHAR(50) NOT NULL,
     last_name            VARCHAR(50) NOT NULL,
-    username             VARCHAR(50) NOT NULL,
     password             VARCHAR(30) NOT NULL,
-    email                VARCHAR(50) NOT NULL,
+    email                VARCHAR(50) NOT NULL UNIQUE,
     birthday             DATE,
     date_of_registration DATE,
-    role                 VARCHAR(50)
+    role                 enum('READER','MANAGER')
 );
 
 CREATE TABLE IF NOT EXISTS book_author
