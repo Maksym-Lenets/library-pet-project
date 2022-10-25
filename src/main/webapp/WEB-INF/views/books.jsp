@@ -44,7 +44,7 @@
                 <tr>
                     <td>${book.id}</td>
                     <td><a href="/bookdata/${book.id}" target="_blank">${book.title}</a></td>
-                    <td>${book.author.firstName}</td>
+                    <td>${book.authorFullName}</td>
                     <td>
                         <a href="/books/remove/${book.id}"> <span class='fa fa-remove'></span></a>
                         <a href="/books/edit/${book.id}"> <span class='fa fa-pencil'></span></a>

@@ -46,6 +46,7 @@ public class HibernateBookRepositoryImpl implements BookRepository {
         Session session = sessionFactory.getCurrentSession();
         Book book = session.load(Book.class, id);
         Hibernate.initialize(book.getAuthor());
+        Hibernate.initialize(book.getCoAuthors());
         Hibernate.initialize(book.getInstances());
         return book;
     }

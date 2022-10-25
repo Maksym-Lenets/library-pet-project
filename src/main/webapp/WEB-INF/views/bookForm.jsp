@@ -41,10 +41,10 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="designation">Designation</label> <input type="text"
-                                                                                value="${book.author.firstName }"
+                            <label for="author">Author</label> <input type="text"
+                                                                                value="${author.firstName}"
                                                                                 class="form-control"
-                                                                                id="designation" name="designation"
+                                                                                id="author" name="author"
                                                                                 placeholder="Enter Designation">
                         </div>
                     </div>

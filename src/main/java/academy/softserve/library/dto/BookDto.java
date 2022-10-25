@@ -17,10 +17,13 @@ public class BookDto {
 
     private String title;
 
+    private String authorFullName;
+
     public static BookDto toBookDto(Book book) {
         BookDto bookDto = new BookDto();
         bookDto.id = book.getId();
         bookDto.title = book.getTitle();
+        bookDto.setAuthorFullName(book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName() );
         return bookDto;
     }
 

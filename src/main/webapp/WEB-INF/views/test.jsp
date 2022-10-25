@@ -2,77 +2,60 @@
 <head>
     <title>Title</title>
     <%@include file="../parts/headTag.jsp" %>
+    <script type='text/javascript'>
+        function addFields(){
+            // Generate a dynamic number of inputs
+            var number = document.getElementById("member").value;
+            // Get the element where the inputs will be added to
+            var container = document.getElementById("container");
+            // Remove every children it had before
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = "member" + i;
+                container.appendChild(input);
+                // Append a line break
+                container.appendChild(document.createElement("br"));
+            }
+        }
+    </script>
 </head>
 <body>
-<h1>HELLO</h1>
+<input type="text" id="member" name="member" value="">Number of members: (max. 10)<br />
+<a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+<div id="container"/>
 
+<div style="width: 70%; margin: 30px auto">
 
-<div class="container mt-3">
-
-    <h1>Book Form</h1>
-    <form action="updateEmployee" method="post">
-
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="id">Id</label> <input type="text"
-                                                      value="${employee.id}" class="form-control" id="id" name="id"
-                                                      readonly="readonly">
-                </div>
-            </div>
+    <form onsubmit="handleCreateProduct(event)">
+        <div class="mb_3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="mb_3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" class="form-control" name="description" rows="3"></textarea>
+        </div>
+        <div class="mb_3">
+            <label for="price" class="form-label">Price in $</label>
+            <input type="number" id="price" class="form-control" min="1" name="price">
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="name">Name</label> <input type="text"
-                                                          value="${employee.name }" class="form-control" id="name"
-                                                          name="name" placeholder="Enter Name">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="designation">Designation</label> <input type="text"
-                                                                        value="${employee.designation }"
-                                                                        class="form-control"
-                                                                        id="designation" name="designation"
-                                                                        placeholder="Enter Designation">
-                </div>
-            </div>
+        <div class="mb_3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" id="image" class="form-control" min="1" name="image">
         </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="department">Department</label> <input
-                        type="text" class="form-control" id="department"
-                        value="${employee.department }" name="department"
-                        placeholder="Enter department">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="salary">Salary</label> <input type="number"
-                                                              value="${employee.salary }" class="form-control"
-                                                              id="salary"
-                                                              name="salary" placeholder="Enter Salary">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea class="form-control" id="address" name="address"
-                              rows="5" placeholder="Enter Address"> ${employee.address } </textarea>
-                </div>
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="submit" class="btn_btn-primary">
     </form>
-
 </div>
+
+
 </body>
 </html>
