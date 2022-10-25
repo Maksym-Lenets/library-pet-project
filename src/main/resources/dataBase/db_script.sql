@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS book
     title            VARCHAR(50) NOT NULL,
     author_id        INT         NOT NULL,
     number_of_copies INT         NOT NULL,
+    status  ENUM ('AVAILABLE','UNAVAILABLE'),
     FOREIGN KEY (author_id) REFERENCES author (id)
 );
 CREATE TABLE IF NOT EXISTS copies_of_books

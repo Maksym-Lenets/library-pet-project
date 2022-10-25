@@ -23,6 +23,11 @@ public class Book extends BaseEntity {
     private String title;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;

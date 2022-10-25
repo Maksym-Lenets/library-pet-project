@@ -2,6 +2,7 @@ package academy.softserve.library.repository.hibernate;
 
 import academy.softserve.library.model.BookInstance;
 import academy.softserve.library.repository.BookInstanceRepository;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,22 +20,33 @@ public class HibernateBookInstanceRepositoryImpl implements BookInstanceReposito
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<BookInstance> getAll() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("From BookInstance").getResultList();
     }
 
     @Override
     public BookInstance get(Long id) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(BookInstance.class, id);
     }
 
     @Override
     public BookInstance saveOrUpdate(BookInstance element) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(element);
+        return element;
     }
 
     @Override
     public boolean remove(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        BookInstance bookInstance = session.get(BookInstance.class, id);
+        if (bookInstance != null) {
+            session.delete(bookInstance);
+            return true;
+        }
         return false;
     }
 }
