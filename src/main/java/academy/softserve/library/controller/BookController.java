@@ -3,6 +3,7 @@ package academy.softserve.library.controller;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookService;
+import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class BookController {
     @GetMapping
     public String getAll(Model model) {
         List<BookDto> books = bookService.getAllAvailable().stream()
-                .map(BookDto::toBookDto)
+                .map(DtoUtil::toBookDto)
                 .collect(Collectors.toList());
         model.addAttribute("listBooks", books);
         return "books";
