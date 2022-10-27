@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,15 +33,15 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "co_author_id"))
     @ToString.Exclude
-    private List<Author> coAuthors;
+    private Set<Author> coAuthors;
 
     @OneToMany(cascade = {CascadeType.ALL},
-            mappedBy = "book", orphanRemoval = true)
+            mappedBy = "book", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<BookInstance> instances;
 }
