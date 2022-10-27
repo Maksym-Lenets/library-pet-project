@@ -1,12 +1,10 @@
 package academy.softserve.library.dto;
 
-import academy.softserve.library.model.Book;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,17 +17,10 @@ public class BookDto {
 
     private String authorFullName;
 
-    public static BookDto toBookDto(Book book) {
-        BookDto bookDto = new BookDto();
-        bookDto.id = book.getId();
-        bookDto.title = book.getTitle();
-        bookDto.setAuthorFullName(book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName() );
-        return bookDto;
-    }
+    private Integer copiesAmount;
 
-    public Book toBook(Book book) {
-        book.setTitle(this.title);
-        return book;
-    }
+    private AuthorDto author;
+
+    private Set<AuthorDto> coAuthors;
 
 }
