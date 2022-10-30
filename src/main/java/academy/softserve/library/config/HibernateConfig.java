@@ -31,7 +31,7 @@ public class HibernateConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost/library?serverTimezone=UTC");
         dataSource.setUsername("root");
-        dataSource.setPassword("password");
+        dataSource.setPassword("Oksana2020@");
 
         return dataSource;
     }
