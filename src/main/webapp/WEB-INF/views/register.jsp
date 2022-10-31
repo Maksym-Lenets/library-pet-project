@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>--%>
 <html>
 <head>
     <title>Registration Page</title>
@@ -21,24 +21,24 @@
         <div class="alert alert-danger" role="alert">${errorMsg}</div>
     </c:if>
     <div class="container-fluid">
-        <form:form method="post" modelAttribute="user">
+        <form method="post" >
             <div class="mt-3">
-                <form:input type="text" path="firstName" placeholder="First Name" class="form-control" />
+                <input type="text" name="firstName" placeholder="First Name" class="form-control" required>
             </div>
             <div class="mt-3">
-                <form:input type="text" path="lastName" placeholder="Last Name" class="form-control" />
+                <input type="text" name="lastName" placeholder="Last Name" class="form-control" required>
             </div>
             <div class="mt-3">
-                <form:input type="date" path="birthday" placeholder="Birthday (YYYY-MM-DD)" class="form-control" />
+                <input type="date" name="birthday" placeholder="Birthday (YYYY-MM-DD)" class="form-control" required>
             </div>
             <div class="mt-3">
-                <form:input type="text" path="email" placeholder="Email" class="form-control" />
+                <input type="text" name="email" placeholder="Email" class="form-control" required autocomplete="on">
             </div>
             <div class="mt-3">
-                <form:input type="password" path="password" placeholder="Password" class="form-control" />
+                <input type="password" name="password" placeholder="Password" class="form-control" required autocomplete="on">
             </div>
             <button type="submit" class=" btn btn-dark btn-block mt-3">Register</button>
-        </form:form>
+        </form>
     </div>
 </div>
 

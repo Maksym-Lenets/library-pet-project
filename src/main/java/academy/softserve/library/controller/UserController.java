@@ -7,15 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 @Controller
 public class UserController {
@@ -26,12 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping(value = "/login")
     public String loginPage(){
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public String booksPage(ModelMap model, @RequestParam String email, @RequestParam String password) {
         User user =  userService.getUserByEmail(email);
         if (user.getPassword().equals(password)) {
@@ -42,30 +36,28 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public String registrationPage(Model model){
         User user = new User();
         model.addAttribute("user",user);
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(ModelMap model, @ModelAttribute("user") User user){
-//                               @RequestParam String firstName,
-//                               @RequestParam String lastName,
-//                               @RequestParam Date birthday,
-//                               @RequestParam String email,
-//                               @RequestParam String password){
-//        User user = new User();
-//        user.setFirstName(firstName);
-//        user.setLastName(lastName);
-//        user.setBirthday(birthday.toInstant()
-//                .atZone(ZoneId.systemDefault())
-//                .toLocalDate());
-//        user.setRegistrationDate(LocalDate.now());
-//        user.setEmail(email);
-//        user.setPassword(password);
-//        user.setRole(Role.READER);
+    @PostMapping(value = "/register")
+    public String registerUser(ModelMap model,
+                               @RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam LocalDate birthday,
+                               @RequestParam String email,
+                               @RequestParam String password){
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setBirthday(birthday);
+        user.setRegistrationDate(LocalDate.now());
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole(Role.READER);
         User saveUser = userService.save(user);
         if(saveUser==null){
             model.put("errorMsg", "Some issue with registration");
@@ -73,6 +65,10 @@ public class UserController {
         }
         model.put("successMsg","User created successfully");
         return "login";
+    }
+    @GetMapping(value = "/logout")
+    public String mainPage(){
+        return "books";
     }
 }
 //package academy.softserve.library.controller;

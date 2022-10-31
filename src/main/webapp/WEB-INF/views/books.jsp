@@ -13,7 +13,8 @@
 </head>
 
 <body>
-<h2>Welcome ${user.firstName} to our library</h2>
+<jsp:include page="./parts/header.jsp"></jsp:include>
+<h2 id ="welcome">Welcome ${user.firstName} to our library</h2>
 <form>
     <div class="container">
         <table class="table table-striped table-bordered" id="bookListTable">
