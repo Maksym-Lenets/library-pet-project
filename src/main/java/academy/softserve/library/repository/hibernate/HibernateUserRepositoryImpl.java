@@ -48,6 +48,18 @@ public class HibernateUserRepositoryImpl implements UserRepository {
         return user;
     }
 
+    public User save(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+        return user;
+    }
+
+    public User update(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+        return user;
+    }
+
     @Override
     public boolean remove(Long id) {
         Session session = sessionFactory.getCurrentSession();
