@@ -39,7 +39,6 @@ public class User extends BaseEntity {
     @NotBlank
     @Column(name = "email")
     @Size(max = 50)
-    @UniqueElements
     private String email;
 
 

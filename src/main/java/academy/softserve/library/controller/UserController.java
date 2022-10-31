@@ -47,13 +47,13 @@ public class UserController {
     public String registerUser(ModelMap model,
                                @RequestParam String firstName,
                                @RequestParam String lastName,
-                               @RequestParam LocalDate birthday,
+                               @RequestParam String birthday,
                                @RequestParam String email,
                                @RequestParam String password){
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setBirthday(birthday);
+        user.setBirthday(LocalDate.parse(birthday));
         user.setRegistrationDate(LocalDate.now());
         user.setEmail(email);
         user.setPassword(password);
