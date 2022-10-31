@@ -46,7 +46,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("user") User user, ModelMap model){
         User saveUser = userService.save(user);
-        if(user==null){
+        if(saveUser==null){
             model.put("errorMsg", "Some issue with registration");
             return "register";
         }
