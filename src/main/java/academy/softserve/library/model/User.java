@@ -51,7 +51,7 @@ public class User extends BaseEntity {
     @NotNull
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private Role role = Role.READER;
+    private Role role;
 
     @NotNull
     @Column(name = "date_of_registration")

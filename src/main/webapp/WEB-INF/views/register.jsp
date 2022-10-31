@@ -10,7 +10,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Registration Page</title>
     <link rel="stylesheet" href="webjars/bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/register.css">
 </head>
@@ -22,23 +22,22 @@
     </c:if>
     <div class="container-fluid">
         <form:form method="post" modelAttribute="user">
-
             <div class="mt-3">
-                <form:input type="text" path="firstName" placeholder="First Name" class="form-control"/>
+                <form:input type="text" path="firstName" placeholder="First Name" class="form-control" />
             </div>
             <div class="mt-3">
-                <form:input type="text" path="lastName" placeholder="Last Name" class="form-control"/>
+                <form:input type="text" path="lastName" placeholder="Last Name" class="form-control" />
             </div>
             <div class="mt-3">
-                <form:input type="date" path="birthday" placeholder="Birthday (YYYY-MM-DD)" class="form-control"/>
+                <form:input type="date" path="birthday" placeholder="Birthday (YYYY-MM-DD)" class="form-control" />
             </div>
             <div class="mt-3">
-                <form:input type="text" path="email" placeholder="Email" class="form-control"/>
+                <form:input type="text" path="email" placeholder="Email" class="form-control" />
             </div>
             <div class="mt-3">
-                <form:input type="password" path="password" placeholder="Password" class="form-control"/>
+                <form:input type="password" path="password" placeholder="Password" class="form-control" />
             </div>
-            <form:button type="submit" class=" btn btn-dark btn-block mt-3">Register</form:button>
+            <button type="submit" class=" btn btn-dark btn-block mt-3">Register</button>
         </form:form>
     </div>
 </div>

@@ -1,5 +1,6 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.model.Role;
 import academy.softserve.library.model.User;
 import academy.softserve.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -44,7 +50,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(@ModelAttribute("user") User user, ModelMap model){
+    public String registerUser(ModelMap model, @ModelAttribute("user") User user){
+//                               @RequestParam String firstName,
+//                               @RequestParam String lastName,
+//                               @RequestParam Date birthday,
+//                               @RequestParam String email,
+//                               @RequestParam String password){
+//        User user = new User();
+//        user.setFirstName(firstName);
+//        user.setLastName(lastName);
+//        user.setBirthday(birthday.toInstant()
+//                .atZone(ZoneId.systemDefault())
+//                .toLocalDate());
+//        user.setRegistrationDate(LocalDate.now());
+//        user.setEmail(email);
+//        user.setPassword(password);
+//        user.setRole(Role.READER);
         User saveUser = userService.save(user);
         if(saveUser==null){
             model.put("errorMsg", "Some issue with registration");
@@ -53,7 +74,6 @@ public class UserController {
         model.put("successMsg","User created successfully");
         return "login";
     }
-
 }
 //package academy.softserve.library.controller;
 //
