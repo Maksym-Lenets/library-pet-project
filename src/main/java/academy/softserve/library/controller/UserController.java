@@ -4,22 +4,24 @@ import academy.softserve.library.model.User;
 import academy.softserve.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class LoginController {
+public class UserController {
     private UserService userService;
 
     @Autowired
-    public LoginController(UserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(){
+    public String loginPage(){
         return "login";
     }
 
@@ -31,6 +33,24 @@ public class LoginController {
             return "books";
         }
         model.put("errorMsg","Please provide your credentials!");
+        return "login";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registrationPage(Model model){
+        User user = new User();
+        model.addAttribute("user",user);
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerUser(@ModelAttribute("user") User user, ModelMap model){
+        User saveUser = userService.save(user);
+        if(user==null){
+            model.put("errorMsg", "Some issue with registration");
+            return "register";
+        }
+        model.put("successMsg","User created successfully");
         return "login";
     }
 
