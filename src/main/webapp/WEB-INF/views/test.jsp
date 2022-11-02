@@ -1,38 +1,43 @@
 <html>
+<%@include file="parts/headTag.jsp" %>
+<script type="text/javascript" src="resources/js/test.js" defer></script>
 <head>
     <title>Title</title>
-    <%@include file="../parts/headTag.jsp" %>
-    <script type='text/javascript'>
-        function addFields(){
-            // Generate a dynamic number of inputs
-            var number = document.getElementById("member").value;
-            // Get the element where the inputs will be added to
-            var container = document.getElementById("container");
-            // Remove every children it had before
-            while (container.hasChildNodes()) {
-                container.removeChild(container.lastChild);
-            }
-            for (i=0;i<number;i++){
-                // Append a node with a random text
-                container.appendChild(document.createTextNode("Member " + (i+1)));
-                // Create an <input> element, set its type and name attributes
-                var input = document.createElement("input");
-                input.type = "text";
-                input.name = "member" + i;
-                container.appendChild(input);
-                // Append a line break
-                container.appendChild(document.createElement("br"));
-            }
-        }
-    </script>
+
 </head>
 <body>
-<input type="text" id="member" name="member" value="">Number of members: (max. 10)<br />
-<a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
-<div id="container"/>
 
 
 
+   <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Edit Book</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="detailsForm">
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <span class="fa fa-close"></span>
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" onclick="save()">
+                    <span class="fa fa-check"></span>
+                    Save
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addColumns()">
+                    <span class="fa fa-check"></span>
+                    addColumns
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

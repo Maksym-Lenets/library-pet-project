@@ -15,14 +15,16 @@ public class DtoUtil {
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
         bookDto.setCopiesAmount(book.getInstances().size());
-        bookDto.setAuthorFullName(book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
         bookDto.setAuthor(toAuthorDto(book.getAuthor()));
-        bookDto.setCoAuthors(toAuthorDtoSet(book.getCoAuthors()));
+        bookDto.setCoAuthors(toAuthorDtoList(book.getCoAuthors()));
         return bookDto;
     }
 
     public static Book toBook(BookDto dto, Book book) {
         book.setTitle(dto.getTitle());
+        Author author = new Author();
+        author.setId(dto.getAuthor().getId());
+        book.setAuthor(author);
         return book;
     }
 
@@ -37,6 +39,7 @@ public class DtoUtil {
         authorDto.setId(author.getId());
         authorDto.setFirstName(author.getFirstName());
         authorDto.setLastName(author.getLastName());
+        authorDto.setFullName(author.getFirstName() + " " + author.getLastName());
         return authorDto;
     }
 
@@ -46,9 +49,9 @@ public class DtoUtil {
         return author;
     }
 
-    public static Set<AuthorDto> toAuthorDtoSet(Set<Author> authors) {
+    public static List<AuthorDto> toAuthorDtoList(Set<Author> authors) {
         return authors.stream()
                 .map(DtoUtil::toAuthorDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

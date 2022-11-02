@@ -7,6 +7,7 @@
 <html>
 <%@include file="parts/headTag.jsp" %>
 <script type="text/javascript" src="resources/js/bookTable.js" defer></script>
+<%--<script type="text/javascript" src="resources/js/myJS.js" defer></script>--%>
 <head>
     <title>Books Page</title>
 
@@ -42,8 +43,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form id="detailsForm">
-                    <input type="hidden" id="id" name="id">
+                <form class="detailsForm" id="detailsForm">
+<%--                    <input type="hidden" id="id" name="id">
 
                     <div class="form-group">
                         <label for="title" class="col-form-label">Title</label>
@@ -53,9 +54,10 @@
 
                     <div class="form-group">
                         <label for="authorFullName" class="col-form-label">Author</label>
-                        <input type="text" class="form-control" id="authorFullName" name="authorFullName"
+                        <input type="text" class="form-control" id="authorFullName" name="author.firstName"
                                placeholder="Author"/>
-                    </div>
+                    </div>--%>
+
 
                 </form>
             </div>

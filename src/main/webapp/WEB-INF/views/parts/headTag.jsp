@@ -21,11 +21,12 @@
     <script type="text/javascript" src="webjars/datatables/1.12.1/js/jquery.dataTables.min.js" defer></script>
     <script type="text/javascript" src="webjars/datatables/1.12.1/js/dataTables.bootstrap4.min.js" defer></script>
     <script type="text/javascript" src="webjars/noty/3.1.0/lib/noty.min.js" defer></script>
+    <script type="text/javascript" src="webjars/underscorejs/1.8.3/underscore-min.js" defer></script>
+    <script type="text/javascript" src="webjars/jsonform/lib/jsonform.js" defer></script>
+<%--
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/lib/jquery-json-form-binding.min.js" defer></script>
+--%>
 </head>
-
-
-
-
 
 
 <%--

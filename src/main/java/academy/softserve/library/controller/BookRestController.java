@@ -1,18 +1,21 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Book;
 import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static academy.softserve.library.util.DtoUtil.*;
-import static org.springframework.http.HttpStatus.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static academy.softserve.library.util.DtoUtil.*;
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
@@ -49,9 +52,14 @@ public class BookRestController {
     }
 
     @PostMapping
-    public void save(BookDto bookDto){
+    public void save(BookDto bookDto) {
         Book book = bookService.get(bookDto.getId());
         bookService.save(toBook(bookDto, book));
     }
 
+    //TODO USE AUTHOR REST CONTROLLER LATER
+    @GetMapping("/authors")
+    public ResponseEntity<List<AuthorDto>> getAuthors() {
+        return new ResponseEntity<>(toAuthorDtoList(new HashSet<>(authorService.getAll())), OK);
+    }
 }
