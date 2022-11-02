@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -11,16 +12,15 @@ import java.util.Set;
 @NoArgsConstructor
 public class BookDto {
 
+
     private Long id;
 
     private String title;
-
-    private String authorFullName;
 
     private Integer copiesAmount;
 
     private AuthorDto author;
 
-    private Set<AuthorDto> coAuthors;
+    private List<AuthorDto> coAuthors;
 
 }

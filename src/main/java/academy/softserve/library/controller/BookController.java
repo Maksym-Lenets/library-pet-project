@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -38,12 +39,12 @@ public class BookController {
 
 
 
-/*    @GetMapping("/{id}")
+  @GetMapping("/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
-        BookDto book = BookDto.toBookDto(bookService.get(id));
+        BookDto book = DtoUtil.toBookDto(bookService.get(id));
         model.addAttribute("book", book);
         return "book";
-    }*//*
+    }
 
     @GetMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id) {
@@ -51,7 +52,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("/edit/{id}")
+   /* @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
         Book book;
         BookDto bookDto;
