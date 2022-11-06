@@ -16,14 +16,14 @@ INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('4', 'C
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`) VALUES ('5', 'Henry', 'James');
 
 -- BOOK
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('1', 'book1', '1', '1', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('2', 'book2', '2', '1', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('3', 'book3', '3', '1', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('4', 'book4', '4', '1', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('5', 'book5', '5', '2', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('6', 'book6', '1', '2', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('7', 'book7', '2', '2', 'AVAILABLE');
-INSERT INTO `library`.`book` (`id`, `title`, `author_id`, `number_of_copies`, `status`) VALUES ('8', 'book8', '3', '2', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('1', 'book1', '1', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('2', 'book2', '2', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('3', 'book3', '3', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('4', 'book4', '4', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('5', 'book5', '5', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('6', 'book6', '1', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('7', 'book7', '2', 'AVAILABLE');
+INSERT INTO `library`.`book` (`id`, `title`, `author_id`,  `status`) VALUES ('8', 'book8', '3', 'AVAILABLE');
 
 -- BOOK_AUTHOR
 INSERT INTO `library`.`book_author` (`book_id`, `co_author_id`) VALUES ('1', '2');

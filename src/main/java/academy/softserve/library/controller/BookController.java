@@ -1,16 +1,18 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
+import academy.softserve.library.model.Author;
+import academy.softserve.library.model.Book;
 import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookService;
 import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +40,7 @@ public class BookController {
     }
 
 
-
-  @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
         BookDto book = DtoUtil.toBookDto(bookService.get(id));
         model.addAttribute("book", book);
@@ -52,32 +53,35 @@ public class BookController {
         return "redirect:/books";
     }
 
-   /* @GetMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
-        Book book;
-        BookDto bookDto;
-        if (id == null || id.equals(0L)) {
-            bookDto = new BookDto();
-
-        } else {
-            book = bookService.get(id);
-            bookDto = BookDto.toBookDto(book);
-        }
+        BookDto bookDto = bookDto = DtoUtil.toBookDto(bookService.get(id));
+        List<AuthorDto> authors = DtoUtil.toAuthorDtoList(authorService.getAll());
         model.addAttribute("book", bookDto);
-
+        model.addAttribute("authorsArr", authors);
         return "bookForm";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("book") BookDto book) {
-        Book originBook;
-        if (book.getId() != null) {
-            originBook = bookService.get(book.getId());
+    public String save(@ModelAttribute("book") BookDto bookDto) {
+        Book book;
+
+        if (bookDto.isNew()) {
+            book = new Book();
+
         } else {
-            originBook = new Book();
+            book = bookService.get(bookDto.getId());
         }
-        originBook = book.toBook(originBook);
-        bookService.save(originBook);
+
+
+        List<Author> authors = authorService.get(bookDto.getCoAuthors().stream()
+                .map(AuthorDto::getId)
+                .collect(Collectors.toList()));
+
+        book = DtoUtil.toBook(bookDto, book);
+        book.setCoAuthors(new HashSet<>(authors));
+        bookService.save(book);
+
         return "redirect:/books";
-    }*/
+    }
 }

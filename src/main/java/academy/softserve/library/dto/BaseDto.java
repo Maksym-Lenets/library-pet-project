@@ -7,12 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AuthorDto extends BaseDto {
+public class BaseDto {
+    private Long id;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String fullName;
-
+    public boolean isNew(){
+        return id == null;
+    }
 }

@@ -2,6 +2,7 @@ package academy.softserve.library.repository.hibernate;
 
 import academy.softserve.library.model.Author;
 import academy.softserve.library.repository.AuthorRepository;
+import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 @Repository
 public class HibernateAuthorRepositoryImp implements AuthorRepository {
     private SessionFactory sessionFactory;
+
     @Autowired
     public HibernateAuthorRepositoryImp(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -27,8 +29,12 @@ public class HibernateAuthorRepositoryImp implements AuthorRepository {
     @Override
     public Author get(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Author author = session.load(Author.class, id);
-        return author;
+        return session.load(Author.class, id);
+    }
+
+    public List<Author> getList(List<Long> ids) {
+        MultiIdentifierLoadAccess<Author> authorsLoader = sessionFactory.getCurrentSession().byMultipleIds(Author.class);
+        return authorsLoader.multiLoad(ids);
     }
 
     @Override
@@ -42,7 +48,7 @@ public class HibernateAuthorRepositoryImp implements AuthorRepository {
     public boolean remove(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Author author = get(id);
-        if (author == null)return false;
+        if (author == null) return false;
         session.remove(author);
         return true;
     }

@@ -4,6 +4,7 @@ import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
+import academy.softserve.library.model.Status;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +16,9 @@ public class DtoUtil {
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
         bookDto.setCopiesAmount(book.getInstances().size());
+        bookDto.setAvailableCopiesAmount((int) book.getInstances().stream()
+                .filter(b -> b.getStatus().equals(Status.AVAILABLE))
+                .count());
         bookDto.setAuthor(toAuthorDto(book.getAuthor()));
         bookDto.setCoAuthors(toAuthorDtoList(book.getCoAuthors()));
         return bookDto;
@@ -53,5 +57,17 @@ public class DtoUtil {
         return authors.stream()
                 .map(DtoUtil::toAuthorDto)
                 .collect(Collectors.toList());
+    }
+
+    public static List<AuthorDto> toAuthorDtoList(List<Author> authors) {
+        return authors.stream()
+                .map(DtoUtil::toAuthorDto)
+                .collect(Collectors.toList());
+    }
+
+    public static Set<AuthorDto> toAuthorDtoSet(Set<Author> authors) {
+        return authors.stream()
+                .map(DtoUtil::toAuthorDto)
+                .collect(Collectors.toSet());
     }
 }

@@ -33,6 +33,12 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
+    public List<Author> get(List<Long> ids) {
+        return authorRepository.getList(ids);
+    }
+
+    @Transactional
+    @Override
     public Author saveOrUpdate(Author author) {
         return authorRepository.saveOrUpdate(author);
     }

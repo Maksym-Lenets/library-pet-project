@@ -29,7 +29,7 @@ public class Book extends BaseEntity {
     private Status status;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "author_id")
     private Author author;
 
