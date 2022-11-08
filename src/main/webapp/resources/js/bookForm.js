@@ -1,10 +1,8 @@
-var authorsArr;
 var coAuthorsAmount;
 
 
 $(document).ready(function () {
     coAuthorsAmount = parseInt(document.getElementById("authors_size").getAttribute("class"));
-    console.log(coAuthorsAmount);
 });
 
 function removeCoAuthor(elemId) {
@@ -19,27 +17,20 @@ function addCoAuthor(coAuthorNumber) {
         coAuthorsAmount = coAuthorNumber;
     }
     if (authorsArr == null) {
-        $.ajax({
-            type: "GET",
-            url: "rest/allAuthors/"
-        }).done(function (data) {
-            authorsArr = data;
-            console.log(authorsArr);
-            addElement();
-        });
+        getAllAuthors();
     } else {
         addElement();
     }
 }
 
-function updateCoAuthorsOrderIndex(){
-var coauthorsElem = document.getElementById("coAuthorsForm").getElementsByTagName("select");
+function updateCoAuthorsOrderIndex() {
+    var coauthorsElem = document.getElementById("coAuthorsForm").getElementsByTagName("select");
 //var lableElem = document.getElementById("coAuthorsForm").getElementsByTagName("label");
     var i;
-   for ( i = 0; i < coauthorsElem.length; i++) {
-    //   lableElem[i].innerHTML = "Co-Author #" + i;
-       coauthorsElem[i].setAttribute("name", "coAuthors[" + i + "].id" )
-   }
+    for (i = 0; i < coauthorsElem.length; i++) {
+        //   lableElem[i].innerHTML = "Co-Author #" + i;
+        coauthorsElem[i].setAttribute("name", "coAuthors[" + i + "].id")
+    }
     coAuthorsAmount = i;
 }
 

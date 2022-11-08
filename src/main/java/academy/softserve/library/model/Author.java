@@ -25,10 +25,11 @@ public class Author extends BaseEntity {
     @NotBlank
     @Column(name = "last_name")
     private String lastName;
-
     @OneToMany(mappedBy = "author",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Set<Book> books;
 
     @ManyToMany(mappedBy = "coAuthors")
+    @ToString.Exclude
     private List<Book> bookList;
 }

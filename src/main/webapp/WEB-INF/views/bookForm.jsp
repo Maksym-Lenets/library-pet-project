@@ -1,6 +1,6 @@
 <html>
 <%@include file="parts/headTag.jsp" %>
-<script type="text/javascript" src="resources/js/bookTable.js" defer></script>
+<script type="text/javascript" src="resources/js/bookForm.js" defer></script>
 <script type="text/javascript" src="resources/js/authors.js" defer></script>
 <head>
     <title>Title</title>
@@ -22,9 +22,29 @@
 
         <spring:bind path="book.title">
             <div class="mb-3 row">
-                <label for="title" class="col-sm-2 col-form-label">Title</label>
+                <label for="title" class="col-sm-2 col-form-label">Title:</label>
                 <div class="input">
                     <form:input path="title" type="text" id="title" class="form-control"/>
+                </div>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="book.availableCopiesAmount">
+            <div class="mb-3 row">
+                <label for="availableCopiesAmount" class="col-sm-2 col-form-label">Available Books:</label>
+                <div class=>
+                    <form:input path="availableCopiesAmount" type="text" readonly="true" class="form-control-plaintext"
+                                id="availableCopiesAmount"/>
+                </div>
+            </div>
+        </spring:bind>
+
+        <spring:bind path="book.copiesAmount">
+            <div class="mb-3 row">
+                <label for="copiesAmount" class="col-sm-2 col-form-label">Copies Amount:</label>
+                <div class=>
+                    <form:input path="copiesAmount" type="number" id="copiesAmount" class="form-control" name="quantity"
+                                min="${book.copiesAmount - book.availableCopiesAmount}" max="1000"/>
                 </div>
             </div>
         </spring:bind>
@@ -43,7 +63,7 @@
                 </div>
             </div>
         </spring:bind>
-        <button type="button" class="btn btn-outline-primary" onclick = "createAuthor()">Create New Author</button>
+        <button type="button" class="btn btn-outline-primary" onclick="createAuthor()">Create New Author</button>
         <br> <br>
         <h5>Co-Authors: </h5>
         <div id="coAuthorsForm">
@@ -98,7 +118,6 @@
 </div>
 
 
-
 <div class="modal fade" tabindex="-1" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -110,12 +129,12 @@
                 <form class="detailsForm" id="detailsForm">
 
                     <div class="form-group">
-                        <label for="firstName" class="col-form-label">Title</label>
+                        <label for="firstName" class="col-form-label">First Name</label>
                         <input class="form-control" id="firstName" name="firstName"
                                placeholder="First Name"/>
                     </div>
                     <div class="form-group">
-                        <label for="lastName" class="col-form-label">Title</label>
+                        <label for="lastName" class="col-form-label">Last name</label>
                         <input class="form-control" id="lastName" name="lastName"
                                placeholder="Last name"/>
                     </div>
@@ -128,7 +147,7 @@
                     <span class="fa fa-close"></span>
                     Cancel
                 </button>
-                <button type="button" class="btn btn-primary" onclick="save()">
+                <button type="button" class="btn btn-primary" onclick="saveAuthor()">
                     <span class="fa fa-check"></span>
                     Save
                 </button>

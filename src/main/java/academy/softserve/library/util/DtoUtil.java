@@ -4,6 +4,7 @@ import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
+import academy.softserve.library.model.BookInstance;
 import academy.softserve.library.model.Status;
 
 import java.util.List;
@@ -16,9 +17,11 @@ public class DtoUtil {
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
         bookDto.setCopiesAmount(book.getInstances().size());
+
         bookDto.setAvailableCopiesAmount((int) book.getInstances().stream()
                 .filter(b -> b.getStatus().equals(Status.AVAILABLE))
                 .count());
+
         bookDto.setAuthor(toAuthorDto(book.getAuthor()));
         bookDto.setCoAuthors(toAuthorDtoList(book.getCoAuthors()));
         return bookDto;
@@ -29,6 +32,7 @@ public class DtoUtil {
         Author author = new Author();
         author.setId(dto.getAuthor().getId());
         book.setAuthor(author);
+        updateBookCopies(dto.getCopiesAmount(), book);
         return book;
     }
 
@@ -69,5 +73,20 @@ public class DtoUtil {
         return authors.stream()
                 .map(DtoUtil::toAuthorDto)
                 .collect(Collectors.toSet());
+    }
+
+    private static void updateBookCopies(Integer updatedAmount, Book book) {
+
+        while (updatedAmount > book.getInstances().size()){
+            book.addNewInstance();
+        }
+
+
+        if (updatedAmount < book.getInstances().size()){
+            for(int i = book.getInstances().size() - updatedAmount; i > 0 ; i--){
+                book.removeInstance();
+            }
+        }
+
     }
 }
