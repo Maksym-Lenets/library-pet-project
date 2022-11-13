@@ -16,6 +16,9 @@ public interface BookService {
     Long countAvailableBooks();
 
     Integer getLastPageNumber(Integer numberOfRecordsPerPage);
+
+    List<Book> getAllAvailableByTitle(String title);
+
     Integer getLastPageNumber();
 
     Book get(Long id);

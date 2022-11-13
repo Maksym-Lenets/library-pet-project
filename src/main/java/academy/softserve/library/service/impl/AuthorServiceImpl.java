@@ -21,20 +21,27 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public List<Author> getAll(){
+    public List<Author> getAll() {
         return authorRepository.getAll();
     }
 
     @Transactional
     @Override
-    public Author get(Long id){
+    public List<Author> getByName(String names) {
+        String[] namesArr = names.trim().split("\\s+");
+        return authorRepository.getAuthorsByName(namesArr);
+    }
+
+    @Transactional
+    @Override
+    public Author get(Long id) {
         return authorRepository.get(id);
     }
 
     @Transactional
     @Override
     public List<Author> get(List<Long> ids) {
-        return authorRepository.getList(ids);
+        return authorRepository.getByIds(ids);
     }
 
     @Transactional

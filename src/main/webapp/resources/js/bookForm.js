@@ -6,7 +6,6 @@ $(document).ready(function () {
 });
 
 function removeCoAuthor(elemId) {
-    console.log(elemId);
     document.getElementById(elemId).remove();
     updateCoAuthorsOrderIndex();
 }
@@ -25,10 +24,10 @@ function addCoAuthor(coAuthorNumber) {
 
 function updateCoAuthorsOrderIndex() {
     var coauthorsElem = document.getElementById("coAuthorsForm").getElementsByTagName("select");
-//var lableElem = document.getElementById("coAuthorsForm").getElementsByTagName("label");
+    var lableElem = document.getElementById("coAuthorsForm").getElementsByTagName("label");
     var i;
     for (i = 0; i < coauthorsElem.length; i++) {
-        //   lableElem[i].innerHTML = "Co-Author #" + i;
+        lableElem[i].innerText = "Co-Author #" + (i + 1) + ":";
         coauthorsElem[i].setAttribute("name", "coAuthors[" + i + "].id")
     }
     coAuthorsAmount = i;
@@ -44,7 +43,7 @@ function addElement() {
     var lable = document.createElement("lable");
     lable.setAttribute("for", "coAuthors[" + coAuthorsAmount + "].id");
     lable.setAttribute("class", "col-sm-2 col-form-label");
-    lable.innerHTML = "Co-Author #" + (parseInt(coAuthorsAmount) + 1);
+    lable.innerHTML = "Co-Author #" + (parseInt(coAuthorsAmount) + 1) + ":";
 
     var row = document.createElement("div");
     row.setAttribute("class", "row")

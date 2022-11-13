@@ -2,13 +2,22 @@ var lastPage;
 var currentPage;
 
 $(document).ready(function () {
-    lastPage = parseInt(document.getElementById("lastPage").getAttribute("class"));
-    currentPage = parseInt(document.getElementById("currentPage").getAttribute("class"));
-    addPagination();
+    if (document.getElementById("lastPage").getAttribute("class") !== "") {
+        lastPage = parseInt(document.getElementById("lastPage").getAttribute("class"));
+        currentPage = parseInt(document.getElementById("currentPage").getAttribute("class"));
+        addPagination();
+    }
+
 });
 
 function addPagination() {
     var page = document.getElementById("page-items");
+
+    var nav = document.createElement("nav");
+    nav.setAttribute("aria-label", "Page navigation");
+
+    var ul = document.createElement("ul");
+    ul.setAttribute("class", "pagination justify-content-center");
 
     var li = document.createElement("li");
     li.setAttribute("class", "page-item");
@@ -24,7 +33,7 @@ function addPagination() {
     aElem.innerHTML = "Previous";
 
     li.appendChild(aElem);
-    page.appendChild(li);
+    ul.appendChild(li);
 
 
     var startIndex = (currentPage - 2) > 0 ? (currentPage - 2) : 1;
@@ -46,7 +55,7 @@ function addPagination() {
         aElem.innerHTML = "" + i;
 
         li.appendChild(aElem);
-        page.appendChild(li);
+        ul.appendChild(li);
 
     }
 
@@ -64,6 +73,20 @@ function addPagination() {
     aElem.innerHTML = "Next";
 
     li.appendChild(aElem);
-    page.appendChild(li);
+    ul.appendChild(li);
+
+    nav.appendChild(ul);
+    page.appendChild(nav);
 }
 
+function hideSearch() {
+    var search = document.getElementById("searchForm");
+    var icon = document.getElementById("hideSearchIcon");
+    if (search.style.display === "none") {
+        search.style.display = "block";
+        icon.setAttribute("class", "fa fa-angle-down");
+    } else {
+        search.style.display = "none";
+        icon.setAttribute("class", "fa fa-angle-up");
+    }
+}

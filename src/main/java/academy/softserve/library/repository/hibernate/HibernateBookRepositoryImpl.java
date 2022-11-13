@@ -48,9 +48,19 @@ public class HibernateBookRepositoryImpl implements BookRepository {
     }
 
     @Override
+    public List<Book> getBooksByTitle(String title) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Book> query = session.createQuery("SELECT DISTINCT b FROM Book b WHERE status =:s AND LOWER (title) like :t");
+        query.setParameter("s", Status.AVAILABLE);
+        query.setParameter("t", "%" + title.toLowerCase() + "%");
+        return query.list();
+    }
+
+    @Override
     public Long countAvailableBooks() {
         Session session = sessionFactory.getCurrentSession();
-        Query<Long> query = session.createQuery("SELECT COUNT (b.id) FROM Book b");
+        Query<Long> query = session.createQuery("SELECT COUNT (b.id) FROM Book b WHERE status =:s");
+        query.setParameter("s", Status.AVAILABLE);
         return query.uniqueResult();
     }
 
@@ -59,10 +69,6 @@ public class HibernateBookRepositoryImpl implements BookRepository {
         Session session = sessionFactory.getCurrentSession();
         Query<Book> query = session.createQuery("SELECT DISTINCT b FROM Book b WHERE id =:id");
         query.setParameter("id", id);
-       /* Book book = session.load(Book.class, id);
-        Hibernate.initialize(book.getAuthor());
-        Hibernate.initialize(book.getCoAuthors());
-        Hibernate.initialize(book.getInstances());*/
         return query.getSingleResult();
     }
 

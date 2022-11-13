@@ -74,7 +74,7 @@
 
                     <div class="mb-3 row" id="${loop.index}">
                         <label for="coAuthors[${loop.index}].id" class="col-sm-2 col-form-label">Co-Author
-                            #${loop.index+1} :</label>
+                            #${loop.index+1}:</label>
 
                         <div class="row">
                             <div class="input">

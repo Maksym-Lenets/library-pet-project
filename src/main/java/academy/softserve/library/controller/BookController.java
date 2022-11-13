@@ -4,7 +4,6 @@ import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
-import academy.softserve.library.model.BookInstance;
 import academy.softserve.library.model.Status;
 import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookInstanceService;
@@ -38,7 +37,7 @@ public class BookController {
 
 
     @GetMapping
-    public String getAll(Model model) {
+    public String getAll() {
         return "redirect:/books/1";
     }
 
@@ -55,6 +54,45 @@ public class BookController {
         return "books";
     }
 
+    @GetMapping("/filter")
+    public String getFiltered(@RequestParam(value = "bookTitle", required = false) String bookTitle,
+                              @RequestParam(value = "authorName", required = false) String authorName, Model model) {
+
+        if (authorName.isEmpty() && bookTitle.isEmpty()) {
+            return "redirect:/books/1";
+        }
+
+        if (authorName.isEmpty()) {
+            List<BookDto> books = bookService.getAllAvailableByTitle(bookTitle).stream()
+                    .map(DtoUtil::toBookDto)
+                    .collect(Collectors.toList());
+
+            model.addAttribute("listBooks", books);
+        }
+
+        if (!authorName.isEmpty()) {
+            List<Author> authors = authorService.getByName(authorName);
+            Set<Book> books = new HashSet<>();
+
+            for (Author author : authors) {
+                books.addAll(author.getBooks());
+                books.addAll(author.getBookList());
+            }
+
+            if (!bookTitle.isEmpty()) {
+                books = books.stream()
+                        .filter(b -> b.getTitle().toLowerCase().contains(bookTitle.toLowerCase()))
+                        .collect(Collectors.toSet());
+            }
+            model.addAttribute("listBooks", DtoUtil.toBooksDtoList(books));
+        }
+
+        model.addAttribute("bookTitle", bookTitle);
+        model.addAttribute("authorName", authorName);
+        model.addAttribute("searchDisplay", true);
+
+        return "books";
+    }
 
     @GetMapping("/book/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
@@ -62,6 +100,7 @@ public class BookController {
         model.addAttribute("book", book);
         return "book";
     }
+
 
     @GetMapping("/remove/{id}")
     public String removeBook(@PathVariable("id") Long id) {
@@ -104,11 +143,13 @@ public class BookController {
                 .map(AuthorDto::getId)
                 .collect(Collectors.toList()));
 
-        book = DtoUtil.toBook(bookDto, book);
+        DtoUtil.toBook(bookDto, book);
         book.setCoAuthors(new HashSet<>(coAuthors));
 
         bookService.save(book);
 
         return "redirect:/books";
     }
+
+
 }

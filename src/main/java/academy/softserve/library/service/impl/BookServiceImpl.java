@@ -48,15 +48,23 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    public List<Book> getAllAvailableByTitle(String title) {
+        return bookRepository.getBooksByTitle(title);
+    }
+
+    @Transactional
+    @Override
     public Integer getLastPageNumber() {
         return getLastPageNumber(DEFAULT_NUMBER_OF_RECORDS_PER_PAGE);
     }
+
 
     @Transactional
     @Override
     public Integer getLastPageNumber(Integer numberOfRecordsPerPage) {
         return (int) Math.ceil((double) countAvailableBooks() / numberOfRecordsPerPage);
     }
+
 
     @Transactional
     @Override

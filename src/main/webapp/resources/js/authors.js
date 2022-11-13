@@ -8,7 +8,6 @@ function getAllAuthors() {
         url: "rest/allAuthors/"
     }).done(function (data) {
         authorsArr = data;
-        console.log(authorsArr);
         addElement();
     });
 }
@@ -18,13 +17,13 @@ function createAuthor() {
 }
 
 function saveAuthor() {
-        $.ajax({
-            type: "POST",
-            url: "rest/author/",
-            data: form.serialize()
-        }).done(function (data) {
-            $("#editRow").modal("hide");
-            updateTable();
-            authorsArr.add(data);
-        });
+    $.ajax({
+        type: "POST",
+        url: "rest/author/",
+        data: form.serialize()
+    }).done(function (data) {
+        $("#editRow").modal("hide");
+        updateTable();
+        authorsArr.add(data);
+    });
 }

@@ -4,9 +4,9 @@ import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
-import academy.softserve.library.model.BookInstance;
 import academy.softserve.library.model.Status;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,7 +36,7 @@ public class DtoUtil {
         return book;
     }
 
-    public static List<BookDto> toBooksDtoList(List<Book> books) {
+    public static <T extends Collection<Book>> List<BookDto> toBooksDtoList(T books) {
         return books.stream()
                 .map(DtoUtil::toBookDto)
                 .collect(Collectors.toList());
@@ -57,13 +57,8 @@ public class DtoUtil {
         return author;
     }
 
-    public static List<AuthorDto> toAuthorDtoList(Set<Author> authors) {
-        return authors.stream()
-                .map(DtoUtil::toAuthorDto)
-                .collect(Collectors.toList());
-    }
 
-    public static List<AuthorDto> toAuthorDtoList(List<Author> authors) {
+    public static <T extends Collection<Author>> List<AuthorDto> toAuthorDtoList(T authors) {
         return authors.stream()
                 .map(DtoUtil::toAuthorDto)
                 .collect(Collectors.toList());
@@ -77,13 +72,13 @@ public class DtoUtil {
 
     private static void updateBookCopies(Integer updatedAmount, Book book) {
 
-        while (updatedAmount > book.getInstances().size()){
+        while (updatedAmount > book.getInstances().size()) {
             book.addNewInstance();
         }
 
 
-        if (updatedAmount < book.getInstances().size()){
-            for(int i = book.getInstances().size() - updatedAmount; i > 0 ; i--){
+        if (updatedAmount < book.getInstances().size()) {
+            for (int i = book.getInstances().size() - updatedAmount; i > 0; i--) {
                 book.removeInstance();
             }
         }
