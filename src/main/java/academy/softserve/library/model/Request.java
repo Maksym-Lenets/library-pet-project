@@ -21,7 +21,7 @@ public class Request extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "book_instance_id")
     private BookInstance bookInstance;
 

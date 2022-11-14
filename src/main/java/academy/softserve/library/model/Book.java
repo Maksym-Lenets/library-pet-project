@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -47,11 +46,12 @@ public class Book extends BaseEntity {
     @ToString.Exclude
     private List<BookInstance> instances = new ArrayList<>();
 
-    public void addNewInstance() {
+    public BookInstance addNewInstance() {
         BookInstance bookInstance = new BookInstance();
         bookInstance.setBook(this);
         bookInstance.setStatus(Status.AVAILABLE);
         instances.add(bookInstance);
+        return bookInstance;
     }
 
     public void removeInstance() {

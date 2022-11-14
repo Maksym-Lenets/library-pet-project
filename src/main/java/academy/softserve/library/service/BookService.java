@@ -2,6 +2,7 @@ package academy.softserve.library.service;
 
 import academy.softserve.library.model.Book;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookService {
@@ -18,6 +19,10 @@ public interface BookService {
     Integer getLastPageNumber(Integer numberOfRecordsPerPage);
 
     List<Book> getAllAvailableByTitle(String title);
+
+    List<Book> getMostPopularBooks(LocalDate fromDate, LocalDate toDate);
+
+    List<Book> getLeastPopularBooks(LocalDate fromDate, LocalDate toDate);
 
     Integer getLastPageNumber();
 
