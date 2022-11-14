@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface BookRepository extends GenericRepository<Book, Long> {
     List<Book> getAllAvailable();
+
+    List<Book> getAllAvailablePaginated(Integer page, Integer numbersOfRecords);
+
+    List<Book> getBooksByTitle(String title);
+
+    Long countAvailableBooks();
 }

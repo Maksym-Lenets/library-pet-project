@@ -8,6 +8,8 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +31,7 @@ public class Book extends BaseEntity {
     private Status status;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "author_id")
     private Author author;
 
@@ -43,5 +45,23 @@ public class Book extends BaseEntity {
     @OneToMany(cascade = {CascadeType.ALL},
             mappedBy = "book", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<BookInstance> instances;
+    private List<BookInstance> instances = new ArrayList<>();
+
+    public void addNewInstance() {
+        BookInstance bookInstance = new BookInstance();
+        bookInstance.setBook(this);
+        bookInstance.setStatus(Status.AVAILABLE);
+        instances.add(bookInstance);
+    }
+
+    public void removeInstance() {
+        BookInstance bookInstance = instances.stream()
+                .filter(i -> i.getStatus().equals(Status.AVAILABLE))
+                .findAny()
+                .orElse(null);
+
+        if (bookInstance != null) {
+            instances.remove(bookInstance);
+        }
+    }
 }

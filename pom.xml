@@ -12,11 +12,11 @@
         <spring-webmvc.version>5.3.23</spring-webmvc.version>
         <spring-orm.version>5.3.23</spring-orm.version>
 
-        <jackson-json.version>2.13.4.2</jackson-json.version>
-
         <servlet.version>4.0.1</servlet.version>
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
+
+        <jackson-json.version>2.13.4.2</jackson-json.version>
 
         <hibernate.version>5.4.33.Final</hibernate.version>
         <hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
@@ -25,10 +25,9 @@
 
         <lombok.version>1.18.24</lombok.version>
 
-        <webjars-jquery.version>3.6.1</webjars-jquery.version>
         <webjars-bootstrap.version>4.6.0</webjars-bootstrap.version>
-        <webjars-datatables.version>1.12.1</webjars-datatables.version>
         <webjars-noty.version>3.1.0</webjars-noty.version>
+        <webjars-jquery.version>3.6.1</webjars-jquery.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -86,6 +85,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
             <version>${tomcat-dbcp.version}</version>
@@ -96,43 +101,19 @@
             <version>${hibernate-validator.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-json.version}</version>
-        </dependency>
-
-
-
-
         <!-- Webjars -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>${webjars-jquery.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>${webjars-bootstrap.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>datatables</artifactId>
-            <version>${webjars-datatables.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars.bower</groupId>
-                    <artifactId>jquery</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.webjars.bower</groupId>
             <artifactId>noty</artifactId>

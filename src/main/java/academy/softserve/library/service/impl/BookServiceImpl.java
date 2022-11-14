@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
+    private static final Integer DEFAULT_NUMBER_OF_RECORDS_PER_PAGE = 10;
+
     private BookRepository bookRepository;
 
     @Autowired
@@ -32,8 +34,46 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getAllAvailable();
     }
 
-    @Override
     @Transactional
+    @Override
+    public List<Book> getAllAvailable(Integer page, Integer numberOfRecords) {
+        return bookRepository.getAllAvailablePaginated(page, numberOfRecords);
+    }
+
+    @Transactional
+    @Override
+    public List<Book> getAllAvailable(Integer page) {
+        return bookRepository.getAllAvailablePaginated(page, DEFAULT_NUMBER_OF_RECORDS_PER_PAGE);
+    }
+
+    @Transactional
+    @Override
+    public List<Book> getAllAvailableByTitle(String title) {
+        return bookRepository.getBooksByTitle(title);
+    }
+
+    @Transactional
+    @Override
+    public Integer getLastPageNumber() {
+        return getLastPageNumber(DEFAULT_NUMBER_OF_RECORDS_PER_PAGE);
+    }
+
+
+    @Transactional
+    @Override
+    public Integer getLastPageNumber(Integer numberOfRecordsPerPage) {
+        return (int) Math.ceil((double) countAvailableBooks() / numberOfRecordsPerPage);
+    }
+
+
+    @Transactional
+    @Override
+    public Long countAvailableBooks() {
+        return bookRepository.countAvailableBooks();
+    }
+
+    @Transactional
+    @Override
     public Book get(Long id) {
         return bookRepository.get(id);
     }

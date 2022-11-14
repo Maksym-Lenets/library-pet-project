@@ -9,6 +9,18 @@ public interface BookService {
 
     List<Book> getAllAvailable();
 
+    public List<Book> getAllAvailable(Integer page);
+
+    public List<Book> getAllAvailable(Integer page, Integer numberOfRecords);
+
+    Long countAvailableBooks();
+
+    Integer getLastPageNumber(Integer numberOfRecordsPerPage);
+
+    List<Book> getAllAvailableByTitle(String title);
+
+    Integer getLastPageNumber();
+
     Book get(Long id);
 
     Book save(Book book);
