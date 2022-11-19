@@ -26,6 +26,12 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.getAll();
     }
 
+    @Override
+    @Transactional
+    public List<Request> getAllByUserId(Long userId) {
+        return requestRepository.getAllByUserId(userId);
+    }
+
     @Transactional
     @Override
     public Request get(Long id){
