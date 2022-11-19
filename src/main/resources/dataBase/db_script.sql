@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS book
     id               BIGINT        NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title            VARCHAR(50) NOT NULL,
     author_id        BIGINT         NOT NULL,
-    status  ENUM ('AVAILABLE','UNAVAILABLE'),
+    status  ENUM ('AVAILABLE','UNAVAILABLE', 'DELETED'),
     FOREIGN KEY (author_id) REFERENCES author (id)
 );
 CREATE TABLE IF NOT EXISTS copies_of_books
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     book_id BIGINT NOT NULL,
-    status  ENUM ('AVAILABLE','UNAVAILABLE'),
+    status  ENUM ('AVAILABLE','UNAVAILABLE', 'DELETED'),
     FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE
 );
 

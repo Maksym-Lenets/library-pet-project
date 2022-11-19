@@ -1,24 +1,29 @@
 package academy.softserve.library.service.impl;
 
 import academy.softserve.library.model.Book;
+import academy.softserve.library.repository.BookInstanceRepository;
 import academy.softserve.library.repository.BookRepository;
 import academy.softserve.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
 
-    private static final Integer DEFAULT_NUMBER_OF_RECORDS_PER_PAGE = 10;
+    private static final Integer DEFAULT_NUMBER_OF_RECORDS = 10;
 
     private BookRepository bookRepository;
 
+    private BookInstanceRepository bookInstanceRepository;
+
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, BookInstanceRepository bookInstanceRepository) {
         this.bookRepository = bookRepository;
+        this.bookInstanceRepository = bookInstanceRepository;
     }
 
 
@@ -43,7 +48,13 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public List<Book> getAllAvailable(Integer page) {
-        return bookRepository.getAllAvailablePaginated(page, DEFAULT_NUMBER_OF_RECORDS_PER_PAGE);
+        return bookRepository.getAllAvailablePaginated(page, DEFAULT_NUMBER_OF_RECORDS);
+    }
+
+    @Transactional
+    @Override
+    public Long countGivenBooks(LocalDate fromDate, LocalDate toDate) {
+        return bookInstanceRepository.countGivenBookCopies(fromDate, toDate);
     }
 
     @Transactional
@@ -54,8 +65,26 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
+    public List<Book> getWithReturnedBackBooksRequests() {
+        return bookRepository.getWithReturnedBackRequests();
+    }
+
+    @Transactional
+    @Override
+    public List<Book> getMostPopularBooks(LocalDate fromDate, LocalDate toDate) {
+        return bookRepository.getMostPopularBooks(DEFAULT_NUMBER_OF_RECORDS, fromDate, toDate);
+    }
+
+    @Transactional
+    @Override
+    public List<Book> getLeastPopularBooks(LocalDate fromDate, LocalDate toDate) {
+        return bookRepository.getLeastPopularBooks(DEFAULT_NUMBER_OF_RECORDS, fromDate, toDate);
+    }
+
+    @Transactional
+    @Override
     public Integer getLastPageNumber() {
-        return getLastPageNumber(DEFAULT_NUMBER_OF_RECORDS_PER_PAGE);
+        return getLastPageNumber(DEFAULT_NUMBER_OF_RECORDS);
     }
 
 

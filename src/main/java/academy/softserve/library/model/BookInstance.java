@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,6 +19,11 @@ public class BookInstance extends BaseEntity {
     @NotNull
     @ManyToOne
     private Book book;
+
+    @OneToMany(cascade = {CascadeType.ALL},
+            mappedBy = "bookInstance", orphanRemoval = true)
+    @ToString.Exclude
+    private List<Request> requests;
 
     @NotNull
     @Enumerated(EnumType.STRING)

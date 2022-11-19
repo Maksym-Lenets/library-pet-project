@@ -3,7 +3,6 @@ package academy.softserve.library.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Table(name = "history_of_request")
 public class Request extends BaseEntity {
@@ -21,7 +19,7 @@ public class Request extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "book_instance_id")
     private BookInstance bookInstance;
 
