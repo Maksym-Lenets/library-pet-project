@@ -5,33 +5,58 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@Table(name = "book")
 public class Book extends BaseEntity {
 
     @NotBlank
+    @Column(name = "title")
     private String title;
 
     @NotNull
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    @NotNull
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "book_author",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "co_author_id"))
     @ToString.Exclude
-    private List<Author> coAuthors;
+    private Set<Author> coAuthors;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL},
+            mappedBy = "book", orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
-    private List<BookInstance> instances;
+    private List<BookInstance> instances = new ArrayList<>();
+
+    public BookInstance addNewInstance() {
+        BookInstance bookInstance = new BookInstance();
+        bookInstance.setBook(this);
+        bookInstance.setStatus(Status.AVAILABLE);
+        instances.add(bookInstance);
+        return bookInstance;
+    }
+
+    public void removeInstance() {
+        instances.stream()
+                .filter(i -> i.getStatus().equals(Status.AVAILABLE))
+                .findAny().ifPresent(bookInstance -> bookInstance.setStatus(Status.DELETED));
+    }
 }

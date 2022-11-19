@@ -1,4 +1,10 @@
 package academy.softserve.library.repository;
 
-public interface RequestRepository extends GenericRepository<RequestRepository, Long> {
+import academy.softserve.library.model.Request;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public interface RequestRepository extends GenericRepository<Request, Long> {
+    List<Request> get(LocalDate from, LocalDate to);
 }

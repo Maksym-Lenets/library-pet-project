@@ -1,16 +1,19 @@
 package academy.softserve.library.repository.hibernate;
 
+import academy.softserve.library.model.Request;
 import academy.softserve.library.repository.RequestRepository;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public class HibernateRequestRepositoryImpl implements RequestRepository {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public HibernateRequestRepositoryImpl(SessionFactory sessionFactory) {
@@ -18,22 +21,43 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public List<RequestRepository> getAll() {
-        return null;
+    @SuppressWarnings("unchecked")
+    public List<Request> getAll() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("From Request").list();
     }
 
     @Override
-    public RequestRepository get(Long id) {
-        return null;
+    public Request get(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.load(Request.class, id);
     }
 
     @Override
-    public RequestRepository saveOrUpdate(RequestRepository element) {
-        return null;
+    public List<Request> get(LocalDate from, LocalDate to) {
+        Session session = sessionFactory.getCurrentSession();
+        String hpl = "SELECT r FROM Request r WHERE r.getBookDate BETWEEN :from AND :to";
+        return session.createQuery(hpl, Request.class)
+                .setParameter("from", from)
+                .setParameter("to", to)
+                .list();
+    }
+
+    @Override
+    public Request saveOrUpdate(Request element) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(element);
+        return element;
     }
 
     @Override
     public boolean remove(Long id) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        Request request = get(id);
+        if (request == null) return false;
+        session.remove(request);
+        return true;
     }
+
+
 }
