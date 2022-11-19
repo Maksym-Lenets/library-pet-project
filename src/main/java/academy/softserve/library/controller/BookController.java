@@ -96,6 +96,7 @@ public class BookController {
         return "books";
     }
 
+    //TODO
     @GetMapping("/book/{id}")
     public String getById(@PathVariable("id") Long id, Model model) {
         BookDto book = DtoUtil.toBookDto(bookService.get(id));
@@ -175,4 +176,27 @@ public class BookController {
         return "topBooks";
     }
 
+    @GetMapping("/statistic")
+    public String statistic(@RequestParam(value = "startDate", required = false)
+                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                            @RequestParam(value = "endDate", required = false)
+                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                            Model model) {
+
+        LocalDate minDate = startDate == null ? LocalDate.now().minusYears(100) : startDate;
+        LocalDate maxDate = endDate == null ? LocalDate.now().plusYears(100) : endDate;
+
+        Long givenBooks = bookService.countGivenBooks(minDate, maxDate);
+
+        List<Book> booksWithRequests = bookService.getWithReturnedBackBooksRequests();
+
+
+        model.addAttribute("givenBooks", givenBooks);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("booksWithReadingTime", DtoUtil.toBookDtosWithAvgReadingTimeList(booksWithRequests));
+
+
+        return "booksStatistic";
+    }
 }

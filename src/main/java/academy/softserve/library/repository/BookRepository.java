@@ -14,6 +14,8 @@ public interface BookRepository extends GenericRepository<Book, Long> {
 
     Long countAvailableBooks();
 
+    List<Book> getWithReturnedBackRequests();
+
     List<Book> getMostPopularBooks(Integer numberOfRecords, LocalDate startPeriod, LocalDate endPeriod);
 
     List<Book> getLeastPopularBooks(Integer numberOfRecords, LocalDate fromDate, LocalDate toDate);

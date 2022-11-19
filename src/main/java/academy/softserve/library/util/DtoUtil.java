@@ -2,21 +2,24 @@ package academy.softserve.library.util;
 
 import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
-import academy.softserve.library.model.Author;
-import academy.softserve.library.model.Book;
-import academy.softserve.library.model.Status;
+import academy.softserve.library.dto.BookInstanceDto;
+import academy.softserve.library.model.*;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class DtoUtil {
     public static BookDto toBookDto(Book book) {
         BookDto bookDto = new BookDto();
         bookDto.setId(book.getId());
         bookDto.setTitle(book.getTitle());
-        bookDto.setCopiesAmount(book.getInstances().size());
+        bookDto.setCopiesAmount((int) book.getInstances().stream()
+                .filter(b -> !b.getStatus().equals(Status.DELETED))
+                .count());
 
         bookDto.setAvailableCopiesAmount((int) book.getInstances().stream()
                 .filter(b -> b.getStatus().equals(Status.AVAILABLE))
@@ -24,6 +27,24 @@ public class DtoUtil {
 
         bookDto.setAuthor(toAuthorDto(book.getAuthor()));
         bookDto.setCoAuthors(toAuthorDtoList(book.getCoAuthors()));
+        return bookDto;
+    }
+
+    public static List<BookDto> toBookDtosWithAvgReadingTimeList(List<Book> books) {
+        return books.stream().map(DtoUtil::toBookDtoWithAvgReadingTimeAndCopies).collect(Collectors.toList());
+    }
+
+
+    public static BookDto toBookDtoWithAvgReadingTimeAndCopies(Book book) {
+        BookDto bookDto = toBookDto(book);
+        bookDto.setCopies(toBookInstanceDtoList(book.getInstances()));
+        int days = 0;
+        int numberOfRequest = 0;
+        for (BookInstanceDto copy : bookDto.getCopies()) {
+            days += copy.getAvgDaysOfReading() * copy.getNumberOfFinishedRequests();
+            numberOfRequest += copy.getNumberOfFinishedRequests();
+        }
+        bookDto.setAvgReadingTime(Math.round((float) days / numberOfRequest));
         return bookDto;
     }
 
@@ -83,5 +104,25 @@ public class DtoUtil {
             }
         }
 
+    }
+
+    public static BookInstanceDto toBookInstanceDto(BookInstance bookInstance) {
+        BookInstanceDto dto = new BookInstanceDto();
+        dto.setId(bookInstance.getId());
+
+        List<Request> requests = bookInstance.getRequests().stream()
+                .filter(r -> r.getReturnBookDate() != null).collect(Collectors.toList());
+        dto.setNumberOfFinishedRequests(requests.size());
+
+        Long sumReadingDays = requests.stream()
+                .map(r -> DAYS.between(r.getGetBookDate(), r.getReturnBookDate()))
+                .reduce(0L, Long::sum);
+
+        dto.setAvgDaysOfReading(sumReadingDays / dto.getNumberOfFinishedRequests());
+        return dto;
+    }
+
+    public static List<BookInstanceDto> toBookInstanceDtoList(List<BookInstance> copies) {
+        return copies.stream().map(DtoUtil::toBookInstanceDto).collect(Collectors.toList());
     }
 }

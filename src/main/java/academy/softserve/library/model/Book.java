@@ -55,13 +55,8 @@ public class Book extends BaseEntity {
     }
 
     public void removeInstance() {
-        BookInstance bookInstance = instances.stream()
+        instances.stream()
                 .filter(i -> i.getStatus().equals(Status.AVAILABLE))
-                .findAny()
-                .orElse(null);
-
-        if (bookInstance != null) {
-            instances.remove(bookInstance);
-        }
+                .findAny().ifPresent(bookInstance -> bookInstance.setStatus(Status.DELETED));
     }
 }

@@ -1,7 +1,7 @@
 <html>
 <%@include file="parts/headTag.jsp" %>
 <head>
-    <title>Top books</title>
+    <title>Books statistic</title>
 </head>
 <body>
 <jsp:include page="parts/header.jsp"/>
@@ -16,7 +16,7 @@
                     <h5>Select period</h5>
                 </div>
                 <div class="card-body py-0">
-                    <form action="/books/top" id="searchForm">
+                    <form action="/books/statistic" id="searchForm">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col">
@@ -36,6 +36,8 @@
                                 </div>
                             </div>
                         </div>
+                        <h4>Number of
+                            books ${endDate == null && startDate == null? 'gave to users' : ' were giving to users in selected period'}: ${givenBooks}</h4>
                         <div class="text-right">
                             <button type="reset" class="btn btn-danger" onclick="location.href='books/';">
                                 <span class="fa fa-remove"></span>
@@ -50,49 +52,47 @@
                         </div>
                     </form>
 
-                    <div class="row">
-                        <div class="col">
-                            <table class="table table-striped table-bordered" style="width:100%" id="topBookListTable">
-                                <thead><h5>10 most popular</h5></thead>
-                                <tr class="table-primary">
-                                    <th style="width:40%">Title</th>
-                                    <th style="width:60%">Author</th>
+                </div>
 
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body py-0">
+                            <table class="table table-striped table-bordered" id="bookListTable">
+                                <thead><h3>Average time of reading</h3></thead>
+                                <tr class="table-primary">
+                                    <th style="width:10%">Title</th>
+                                    <th style="width:20%">Author</th>
+                                    <th style="width:30%">AVG time of reading (days)</th>
+                                    <th style="width:40%">By books copies</th>
                                 </tr>
                                 <tbody>
-                                <c:forEach items="${popularBooksList}" var="book">
+                                <c:forEach items="${booksWithReadingTime}" var="book">
                                     <tr>
                                         <td>${book.title}</td>
                                         <td>${book.author.fullName}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col">
-                            <table class="table table-striped table-bordered" style="width:100%" id="bookListTable">
-                                <thead><h5>10 least popular</h5></thead>
-                                <tr class="table-primary">
-                                    <th style="width:40%">Title</th>
-                                    <th style="width:60%">Author</th>
+                                        <td>${book.avgReadingTime}</td>
 
-                                </tr>
-                                <tbody>
-                                <c:forEach items="${unpopularBooksList}" var="book">
-                                    <tr>
-                                        <td>${book.title}</td>
-                                        <td>${book.author.fullName}</td>
+                                        <td>
+                                            <c:forEach items="${book.copies}" var="copy" varStatus="loop">
+                                                copy #${loop.index + 1} - ${copy.avgDaysOfReading} days
+                                                <c:if test="${not loop.last}">;</c:if>
+                                            </c:forEach>
+                                        </td>
+
+
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
+
+
             </div>
         </div>
     </div>
+
 </div>
 
 

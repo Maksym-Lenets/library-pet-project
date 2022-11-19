@@ -21,9 +21,10 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Request> getAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Request", Request.class).list();
+        return session.createQuery("From Request").list();
     }
 
     @Override
@@ -35,12 +36,11 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     @Override
     public List<Request> get(LocalDate from, LocalDate to) {
         Session session = sessionFactory.getCurrentSession();
-        String hpl = "FROM Request WHERE getBookDate BETWEEN :from AND :to";
-        List<Request> list = session.createQuery(hpl)
+        String hpl = "SELECT r FROM Request r WHERE r.getBookDate BETWEEN :from AND :to";
+        return session.createQuery(hpl, Request.class)
                 .setParameter("from", from)
                 .setParameter("to", to)
                 .list();
-        return list;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     public boolean remove(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Request request = get(id);
-        if (request == null)return false;
+        if (request == null) return false;
         session.remove(request);
         return true;
     }

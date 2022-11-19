@@ -1,8 +1,10 @@
 package academy.softserve.library.repository.hibernate;
 
 import academy.softserve.library.model.Book;
+import academy.softserve.library.model.BookInstance;
 import academy.softserve.library.model.Status;
 import academy.softserve.library.repository.BookRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -74,6 +76,18 @@ public class HibernateBookRepositoryImpl implements BookRepository {
     }
 
     @Override
+    public List<Book> getWithReturnedBackRequests() {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Book> query = session.createQuery("SELECT DISTINCT r.bookInstance.book FROM Request r" +
+                " WHERE r.returnBookDate IS NOT NULL", Book.class);
+        List<Book> books = query.getResultList();
+        for (Book book : books) {
+            book.getInstances().forEach(i -> Hibernate.initialize(i.getRequests()));
+        }
+        return books;
+    }
+
+    @Override
     public List<Book> getMostPopularBooks(Integer numberOfRecords, LocalDate fromDate, LocalDate toDate) {
         Session session = sessionFactory.getCurrentSession();
         Query<Book> query = session.createQuery("SELECT r.bookInstance.book FROM Request r " +
@@ -110,12 +124,19 @@ public class HibernateBookRepositoryImpl implements BookRepository {
         return element;
     }
 
+
     @Override
     public boolean remove(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Book book = session.get(Book.class, id);
         if (book != null) {
-            book.setStatus(Status.UNAVAILABLE);
+            for (BookInstance copy : book.getInstances()) {
+                if (copy.getStatus().equals(Status.UNAVAILABLE)) {
+                    return false;
+                }
+                copy.setStatus(Status.DELETED);
+            }
+            book.setStatus(Status.DELETED);
             session.update(book);
             return true;
         }
