@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <button type="reset" class="btn btn-danger" onclick="location.href='books/';">
+                            <button type="reset" class="btn btn-danger" onclick="location.href='books/top';">
                                 <span class="fa fa-remove"></span>
                                 Cancel
                             </button>

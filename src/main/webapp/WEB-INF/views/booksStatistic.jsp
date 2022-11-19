@@ -39,7 +39,7 @@
                         <h4>Number of
                             books ${endDate == null && startDate == null? 'gave to users' : ' were giving to users in selected period'}: ${givenBooks}</h4>
                         <div class="text-right">
-                            <button type="reset" class="btn btn-danger" onclick="location.href='books/';">
+                            <button type="reset" class="btn btn-danger" onclick="location.href='books/statistic';">
                                 <span class="fa fa-remove"></span>
                                 Cancel
                             </button>
