@@ -1,8 +1,10 @@
 package academy.softserve.library.service.impl;
 
+import academy.softserve.library.dto.RequestReadBookDto;
 import academy.softserve.library.model.Request;
 import academy.softserve.library.repository.RequestRepository;
 import academy.softserve.library.service.RequestService;
+import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +24,19 @@ public class RequestServiceImpl implements RequestService {
 
     @Transactional
     @Override
-    public List<Request> getAll(){
+    public List<Request> getAll() {
         return requestRepository.getAll();
+    }
+
+    @Override
+    @Transactional
+    public List<RequestReadBookDto> getAllSuccessfulByUserId(Long userId) {
+        return DtoUtil.toRequestReadBookDtoList(requestRepository.getAllSuccessfulByUserId(userId));
     }
 
     @Transactional
     @Override
-    public Request get(Long id){
+    public Request get(Long id) {
         return requestRepository.get(id);
     }
 
