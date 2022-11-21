@@ -2,10 +2,14 @@ package academy.softserve.library.util;
 
 import academy.softserve.library.dto.AuthorDto;
 import academy.softserve.library.dto.BookDto;
+import academy.softserve.library.dto.RequestReadBookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
+import academy.softserve.library.model.Request;
 import academy.softserve.library.model.Status;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -83,5 +87,24 @@ public class DtoUtil {
             }
         }
 
+    }
+
+    public static RequestReadBookDto toRequestReadBookDto(Request request){
+        RequestReadBookDto requestReadBookDto = new RequestReadBookDto();
+        requestReadBookDto.setTitle(request.getBookInstance().getBook().getTitle());
+        boolean isRead = request.getReturnBookDate() != null;
+        requestReadBookDto.setIsRead(isRead);
+        if(isRead){
+            LocalDate now = LocalDate.now();
+            LocalDate returnDate = request.getReturnBookDate();
+            requestReadBookDto.setDay(Duration.between(returnDate.atStartOfDay(), now.atStartOfDay()).toDays());
+        }
+        return requestReadBookDto;
+    }
+
+    public static <T extends Collection<Request>> List<RequestReadBookDto> toRequestReadBookDtoList(T requests){
+        return requests.stream()
+                .map(DtoUtil::toRequestReadBookDto)
+                .collect(Collectors.toList());
     }
 }

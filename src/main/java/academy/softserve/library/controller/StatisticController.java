@@ -1,5 +1,6 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.dto.RequestReadBookDto;
 import academy.softserve.library.model.Request;
 import academy.softserve.library.service.BookInstanceService;
 import academy.softserve.library.service.BookService;
@@ -31,14 +32,10 @@ public class StatisticController {
         this.requestService =requestService;
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/reader/{userId}")
     public String getAllPerPage(@PathVariable Long userId, Model model) {
-        List<Request> requests = requestService.getAllByUserId(userId);
-
-
+        List<RequestReadBookDto> requests = requestService.getAllByUserId(userId);
         model.addAttribute("listRequest", requests);
-
-
         return "bookStatistic";
     }
 }
