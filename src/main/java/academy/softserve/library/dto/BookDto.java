@@ -6,12 +6,11 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class BookDto extends BaseDto{
+public class BookDto extends BaseDto {
 
     private String title;
 
@@ -21,6 +20,10 @@ public class BookDto extends BaseDto{
 
     private AuthorDto author;
 
+    private Integer avgReadingTime;
+
     private List<AuthorDto> coAuthors = new ArrayList<>();
+
+    private List<BookInstanceDto> copies = new ArrayList<>();
 
 }

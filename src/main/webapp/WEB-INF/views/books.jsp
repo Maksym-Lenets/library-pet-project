@@ -74,7 +74,7 @@
             <th>Title</th>
             <th>Author</th>
             <th>Co-authors</th>
-            <th>Copies</th>
+            <th>Copies/Available</th>
             <th>Actions</th>
         </tr>
         <tbody>
@@ -90,21 +90,24 @@
                         <c:if test="${not loop.last}">,</c:if>
                     </c:forEach>
                 </td>
-                <td>${book.copiesAmount}</td>
+                <td style="text-align:center">${book.copiesAmount} / ${book.availableCopiesAmount}</td>
 
                 <td>
                     <spring:url value="/books/edit/${book.id}" var="updateUrl"/>
                     <spring:url value="/books/remove/${book.id}" var="deleteUrl"/>
                     <spring:url value="/books/get/${book.id}" var="getBook"/>
 
-                    <span class='fa fa-pencil' style="margin-left: 10px;" title="Update"
+                    <span class='fa fa-pencil' style="margin-left: 10px; color: limegreen;" title="Update"
                           onclick="location.href='${updateUrl}'"></span>
 
-                    <span class='fa fa-remove' style="margin-left: 10px;" title="Delete"
+                    <span class='fa fa-remove' style="margin-left: 10px; color: red;" title="Delete"
                           onclick="location.href='${deleteUrl}'"></span>
 
-                    <span class='fa fa-plus' style="margin-left: 10px;" title="Get Book"
-                          onclick="location.href='${getBook}'"></span>
+                    <span class='fa fa-plus'
+                          style='margin-left: 10px; ${book.availableCopiesAmount > 0 ? "color: slateblue;":""}'
+                          title="Get Book"
+                            <c:if test="${book.availableCopiesAmount > 0}"> onclick="location.href='${getBook}'"</c:if>
+                    ></span>
 
                 </td>
 
