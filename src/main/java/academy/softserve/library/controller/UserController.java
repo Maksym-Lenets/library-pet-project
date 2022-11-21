@@ -1,7 +1,9 @@
 package academy.softserve.library.controller;
 
+import academy.softserve.library.dto.RequestReadBookDto;
 import academy.softserve.library.model.Role;
 import academy.softserve.library.model.User;
+import academy.softserve.library.service.RequestService;
 import academy.softserve.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +12,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class UserController {
     private UserService userService;
+    private RequestService requestService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, RequestService requestService) {
         this.userService = userService;
+        this.requestService = requestService;
     }
 
     @GetMapping(value = "/login")
@@ -69,6 +74,13 @@ public class UserController {
     @GetMapping(value = "/logout")
     public String mainPage(){
         return "books";
+    }
+
+    @GetMapping("/user/{userId}/statistic/books")
+    public String getAllPerPage(@PathVariable Long userId, Model model) {
+        List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userId);
+        model.addAttribute("listRequest", requests);
+        return "userBooksStatistic";
     }
 }
 //package academy.softserve.library.controller;

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RequestService {
     List<Request> getAll();
-    List<RequestReadBookDto> getAllByUserId(Long userId);
+    List<RequestReadBookDto> getAllSuccessfulByUserId(Long userId);
     Request get(Long id);
     List<Request> get(LocalDate from, LocalDate to);
     Request saveOrUpdate(Request author);

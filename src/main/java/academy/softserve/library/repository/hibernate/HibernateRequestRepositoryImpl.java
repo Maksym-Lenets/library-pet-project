@@ -46,9 +46,9 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public List<Request> getAllByUserId(Long id) {
+    public List<Request> getAllSuccessfulByUserId(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        String hpl = "FROM Request WHERE  user.id = :id";
+        String hpl = "FROM Request WHERE  user.id = :id AND getBookDate != null";
         List<Request> list = session.createQuery(hpl)
                 .setParameter("id", id)
                 .list();

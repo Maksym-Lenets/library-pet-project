@@ -121,11 +121,10 @@ public class DtoUtil {
         requestReadBookDto.setTitle(request.getBookInstance().getBook().getTitle());
         boolean isRead = request.getReturnBookDate() != null;
         requestReadBookDto.setIsRead(isRead);
-        if(isRead){
-            LocalDate now = LocalDate.now();
-            LocalDate returnDate = request.getReturnBookDate();
-            requestReadBookDto.setDay(Duration.between(returnDate.atStartOfDay(), now.atStartOfDay()).toDays());
-        }
+        LocalDate begin = request.getGetBookDate();
+        LocalDate end = isRead ? request.getReturnBookDate() : LocalDate.now();
+
+        requestReadBookDto.setDay(Duration.between(begin.atStartOfDay(), end.atStartOfDay()).toDays());
         return requestReadBookDto;
     }
 

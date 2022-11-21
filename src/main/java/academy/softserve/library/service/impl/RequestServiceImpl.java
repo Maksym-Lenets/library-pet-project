@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -31,8 +30,8 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     @Transactional
-    public List<RequestReadBookDto> getAllByUserId(Long userId) {
-        return DtoUtil.toRequestReadBookDtoList(requestRepository.getAllByUserId(userId));
+    public List<RequestReadBookDto> getAllSuccessfulByUserId(Long userId) {
+        return DtoUtil.toRequestReadBookDtoList(requestRepository.getAllSuccessfulByUserId(userId));
     }
 
     @Transactional
