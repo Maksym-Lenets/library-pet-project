@@ -76,7 +76,7 @@ public class UserController {
         return "books";
     }
 
-    @GetMapping("/user/{userId}/statistic/books")
+    @GetMapping("/user/{userId}/books/statistic")
     public String getAllPerPage(@PathVariable Long userId, Model model) {
         List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userId);
         model.addAttribute("listRequest", requests);
