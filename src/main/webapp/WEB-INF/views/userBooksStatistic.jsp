@@ -19,7 +19,7 @@
             <h4>You have read 1 book</h4>
         </c:when>
         <c:otherwise>
-            <h4>You haven read ${listRequest.size()} books</h4>
+            <h4>You have read ${listRequest.size()} books</h4>
         </c:otherwise>
     </c:choose>
 

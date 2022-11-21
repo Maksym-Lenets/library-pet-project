@@ -28,6 +28,7 @@
                     Statistics
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/user/5/books/statistic">My books</a>
                     <a class="dropdown-item" href="/books/statistic">Books</a>
                     <a class="dropdown-item" href="#">Users</a>
                 </div>
