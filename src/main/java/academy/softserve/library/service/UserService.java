@@ -25,4 +25,5 @@ public interface UserService {
     boolean deleteUser(long id);
 
     List<UserNotReturnedBookInTimeDto> getAllNotReturnedInTime();
+    Long getAverageAge();
 }

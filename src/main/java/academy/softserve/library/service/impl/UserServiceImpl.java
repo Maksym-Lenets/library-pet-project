@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.YEARS;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -99,5 +103,14 @@ public class UserServiceImpl implements UserService {
                 .entrySet().stream()
                 .map(a -> DtoUtil.toUserNotReturnedBookInTimeDto(a.getKey(), a.getValue()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public Long getAverageAge() {
+        return Math.round(userRepository.getAverageAge().stream()
+                .mapToDouble(a -> YEARS.between(a, LocalDate.now()))
+                .average()
+                .getAsDouble());
     }
 }
