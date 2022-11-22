@@ -57,6 +57,13 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
+    public List<Request> getAllNotReturnedInTime() {
+        Session session = sessionFactory.getCurrentSession();
+        List<Request> list = session.createQuery("FROM Request WHERE getBookDate != null AND (returnBookDate = null OR shouldBeReturn < returnBookDate)").list();
+        return list;
+    }
+
+    @Override
     public Request saveOrUpdate(Request element) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(element);

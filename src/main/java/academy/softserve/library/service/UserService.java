@@ -1,5 +1,6 @@
 package academy.softserve.library.service;
 
+import academy.softserve.library.dto.UserNotReturnedBookInTimeDto;
 import academy.softserve.library.exception.IncorrectCredsExceptions;
 import academy.softserve.library.exception.UserAlreadyExistException;
 import academy.softserve.library.exception.UserNotFoundException;
@@ -22,4 +23,6 @@ public interface UserService {
     User login(String email, String password) ;
 
     boolean deleteUser(long id);
+
+    List<UserNotReturnedBookInTimeDto> getAllNotReturnedInTime();
 }

@@ -1,6 +1,7 @@
 package academy.softserve.library.controller;
 
 import academy.softserve.library.dto.RequestReadBookDto;
+import academy.softserve.library.dto.UserNotReturnedBookInTimeDto;
 import academy.softserve.library.model.Role;
 import academy.softserve.library.model.User;
 import academy.softserve.library.service.RequestService;
@@ -76,11 +77,18 @@ public class UserController {
         return "books";
     }
 
-    @GetMapping("/user/{userId}/books/statistic")
-    public String getAllPerPage(@PathVariable Long userId, Model model) {
+    @GetMapping("/users/{userId}/books/statistic")
+    public String getAllReadBooks(@PathVariable Long userId, Model model) {
         List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userId);
         model.addAttribute("listRequest", requests);
         return "userBooksStatistic";
+    }
+
+    @GetMapping("/users/not_returned_book/statistic")
+    public String getAllNotReturned(Model model) {
+        List<UserNotReturnedBookInTimeDto> users = userService.getAllNotReturnedInTime();
+        model.addAttribute("listUser", users);
+        return "userNotReturnedBooks";
     }
 }
 //package academy.softserve.library.controller;

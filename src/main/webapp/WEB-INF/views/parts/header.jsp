@@ -31,6 +31,7 @@
                     <a class="dropdown-item" href="/user/5/books/statistic">My books</a>
                     <a class="dropdown-item" href="/books/statistic">Books</a>
                     <a class="dropdown-item" href="#">Users</a>
+                    <a class="dropdown-item" href="/users/not_returned_book/statistic">Overdue users</a>
                 </div>
             </li>
             <li class="nav-item">

@@ -9,6 +9,7 @@ import java.util.List;
 public interface RequestService {
     List<Request> getAll();
     List<RequestReadBookDto> getAllSuccessfulByUserId(Long userId);
+    List<Request> getAllNotReturnedInTime();
     Request get(Long id);
     List<Request> get(LocalDate from, LocalDate to);
     Request saveOrUpdate(Request author);
