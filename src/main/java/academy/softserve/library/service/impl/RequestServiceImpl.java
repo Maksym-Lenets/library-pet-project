@@ -34,6 +34,12 @@ public class RequestServiceImpl implements RequestService {
         return DtoUtil.toRequestReadBookDtoList(requestRepository.getAllSuccessfulByUserId(userId));
     }
 
+    @Override
+    @Transactional
+    public List<Request> getAllNotReturnedInTime() {
+        return requestRepository.getAllNotReturnedInTime();
+    }
+
     @Transactional
     @Override
     public Request get(Long id) {

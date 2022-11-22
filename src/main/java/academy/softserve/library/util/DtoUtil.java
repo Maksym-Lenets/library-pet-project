@@ -1,15 +1,12 @@
 package academy.softserve.library.util;
 
-import academy.softserve.library.dto.AuthorDto;
-import academy.softserve.library.dto.BookDto;
+import academy.softserve.library.dto.*;
 
-import academy.softserve.library.dto.RequestReadBookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
 import academy.softserve.library.model.Request;
 import academy.softserve.library.model.Status;
 
-import academy.softserve.library.dto.BookInstanceDto;
 import academy.softserve.library.model.*;
 
 
@@ -152,5 +149,17 @@ public class DtoUtil {
 
     public static List<BookInstanceDto> toBookInstanceDtoList(List<BookInstance> copies) {
         return copies.stream().map(DtoUtil::toBookInstanceDto).collect(Collectors.toList());
+    }
+
+    public static UserNotReturnedBookInTimeDto toUserNotReturnedBookInTimeDto(User user, Long count){
+        UserNotReturnedBookInTimeDto userNotReturnedBookDto = new UserNotReturnedBookInTimeDto();
+        userNotReturnedBookDto.setFirst_name(user.getFirstName());
+        userNotReturnedBookDto.setLast_name(user.getLastName());
+        userNotReturnedBookDto.setEmail(user.getEmail());
+        userNotReturnedBookDto.setRole(user.getRole());
+        userNotReturnedBookDto.setRegistrationDate(user.getRegistrationDate());
+        userNotReturnedBookDto.setBirthday(user.getBirthday());
+        userNotReturnedBookDto.setCountOfNotReturnedInBooksInTime(count);
+        return userNotReturnedBookDto;
     }
 }

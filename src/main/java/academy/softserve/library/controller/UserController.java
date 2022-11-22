@@ -1,11 +1,14 @@
 package academy.softserve.library.controller;
 
 import academy.softserve.library.dto.RequestReadBookDto;
+import academy.softserve.library.dto.UserNotReturnedBookInTimeDto;
+import academy.softserve.library.model.Request;
 import academy.softserve.library.model.Role;
 import academy.softserve.library.model.User;
 import academy.softserve.library.service.RequestService;
 import academy.softserve.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -26,25 +29,25 @@ public class UserController {
     }
 
     @GetMapping(value = "/login")
-    public String loginPage(){
+    public String loginPage() {
         return "login";
     }
 
     @PostMapping(value = "/login")
     public String booksPage(ModelMap model, @RequestParam String email, @RequestParam String password) {
-        User user =  userService.getUserByEmail(email);
+        User user = userService.getUserByEmail(email);
         if (user.getPassword().equals(password)) {
-            model.put("user",user);
+            model.put("user", user);
             return "books";
         }
-        model.put("errorMsg","Please provide your credentials!");
+        model.put("errorMsg", "Please provide your credentials!");
         return "login";
     }
 
     @GetMapping(value = "/register")
-    public String registrationPage(Model model){
+    public String registrationPage(Model model) {
         User user = new User();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "register";
     }
 
@@ -54,7 +57,7 @@ public class UserController {
                                @RequestParam String lastName,
                                @RequestParam String birthday,
                                @RequestParam String email,
-                               @RequestParam String password){
+                               @RequestParam String password) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -64,23 +67,47 @@ public class UserController {
         user.setPassword(password);
         user.setRole(Role.READER);
         User saveUser = userService.save(user);
-        if(saveUser==null){
+        if (saveUser == null) {
             model.put("errorMsg", "Some issue with registration");
             return "register";
         }
-        model.put("successMsg","User created successfully");
+        model.put("successMsg", "User created successfully");
         return "login";
     }
+
     @GetMapping(value = "/logout")
-    public String mainPage(){
+    public String mainPage() {
         return "books";
     }
 
-    @GetMapping("/user/{userId}/books/statistic")
-    public String getAllPerPage(@PathVariable Long userId, Model model) {
+    @GetMapping("/users/{userId}/books/statistic")
+    public String getAllReadBooks(@PathVariable Long userId, Model model) {
         List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userId);
         model.addAttribute("listRequest", requests);
         return "userBooksStatistic";
+    }
+
+    @GetMapping("/users/not_returned_book/statistic")
+    public String getAllNotReturned(Model model) {
+        List<UserNotReturnedBookInTimeDto> users = userService.getAllNotReturnedInTime();
+        model.addAttribute("listUser", users);
+        return "userNotReturnedBooks";
+    }
+
+    @GetMapping("/readers/statistic")
+    public String getReadersStatistic(@RequestParam(value = "startDate", required = false)
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                      @RequestParam(value = "endDate", required = false)
+                                      @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, Model model) {
+        Long averageAge = userService.getAverageAge();
+        LocalDate minDate = startDate == null ? LocalDate.now().minusYears(100) : startDate;
+        LocalDate maxDate = endDate == null ? LocalDate.now().plusYears(100) : endDate;
+        List<Request> requests = requestService.get(minDate, maxDate);
+        model.addAttribute("averageAge", averageAge);
+        model.addAttribute("requests", requests);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        return "readersStatistic";
     }
 }
 //package academy.softserve.library.controller;

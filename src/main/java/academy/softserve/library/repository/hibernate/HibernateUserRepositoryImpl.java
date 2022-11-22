@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -58,6 +59,12 @@ public class HibernateUserRepositoryImpl implements UserRepository {
         Session session = sessionFactory.getCurrentSession();
         session.update(user);
         return user;
+    }
+
+    @Override
+    public List<LocalDate> getAverageAge() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("SELECT birthday FROM User").list();
     }
 
     @Override

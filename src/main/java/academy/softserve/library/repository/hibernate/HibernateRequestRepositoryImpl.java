@@ -38,11 +38,14 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
     @Override
     public List<Request> get(LocalDate from, LocalDate to) {
         Session session = sessionFactory.getCurrentSession();
-        String hpl = "SELECT r FROM Request r WHERE r.getBookDate BETWEEN :from AND :to";
-        return session.createQuery(hpl, Request.class)
+        String hpl = "FROM Request WHERE requestDate BETWEEN :from AND :to";
+        List<Request> requests = session.createQuery(hpl)
                 .setParameter("from", from)
                 .setParameter("to", to)
                 .list();
+        requests.forEach(a -> Hibernate.initialize(a.getBookInstance()));
+        requests.forEach(a -> Hibernate.initialize(a.getUser()));
+        return requests;
     }
 
     @Override
@@ -53,6 +56,13 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
                 .setParameter("id", id)
                 .list();
         list.forEach(a -> Hibernate.initialize(a.getBookInstance()));
+        return list;
+    }
+
+    @Override
+    public List<Request> getAllNotReturnedInTime() {
+        Session session = sessionFactory.getCurrentSession();
+        List<Request> list = session.createQuery("FROM Request WHERE getBookDate != null AND (returnBookDate = null OR shouldBeReturn < returnBookDate)").list();
         return list;
     }
 
