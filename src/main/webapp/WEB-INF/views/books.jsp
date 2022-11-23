@@ -63,10 +63,11 @@
     </div>
 
     <br>
-    <button type="button" class="btn btn-outline-primary" onclick="location.href='books/create/'"> Create New Book
-    </button>
-    <br> <br>
-
+    <sec:authorize access="hasRole('MANAGER')">
+        <button type="button" class="btn btn-outline-primary" onclick="location.href='books/create/'"> Create New Book
+        </button>
+        <br> <br>
+    </sec:authorize>
 
     <table class="table table-striped table-bordered" id="bookListTable">
         <tr class="table-primary">
@@ -75,7 +76,9 @@
             <th>Author</th>
             <th>Co-authors</th>
             <th>Copies/Available</th>
-            <th>Actions</th>
+            <sec:authorize access="isAuthenticated()">
+                <th>Actions</th>
+            </sec:authorize>
         </tr>
         <tbody>
         <c:forEach items="${listBooks}" var="book">
@@ -91,26 +94,26 @@
                     </c:forEach>
                 </td>
                 <td style="text-align:center">${book.copiesAmount} / ${book.availableCopiesAmount}</td>
+                <sec:authorize access="isAuthenticated()">
+                    <td>
+                        <spring:url value="/books/edit/${book.id}" var="updateUrl"/>
+                        <spring:url value="/books/remove/${book.id}" var="deleteUrl"/>
+                        <spring:url value="/books/get/${book.id}" var="getBook"/>
 
-                <td>
-                    <spring:url value="/books/edit/${book.id}" var="updateUrl"/>
-                    <spring:url value="/books/remove/${book.id}" var="deleteUrl"/>
-                    <spring:url value="/books/get/${book.id}" var="getBook"/>
+                        <sec:authorize access="hasRole('MANAGER')">
+                            <span class='fa fa-pencil' style="margin-left: 10px; color: limegreen;" title="Update"
+                                  onclick="location.href='${updateUrl}'"></span>
 
-                    <span class='fa fa-pencil' style="margin-left: 10px; color: limegreen;" title="Update"
-                          onclick="location.href='${updateUrl}'"></span>
-
-                    <span class='fa fa-remove' style="margin-left: 10px; color: red;" title="Delete"
-                          onclick="location.href='${deleteUrl}'"></span>
-
-                    <span class='fa fa-plus'
-                          style='margin-left: 10px; ${book.availableCopiesAmount > 0 ? "color: slateblue;":""}'
-                          title="Get Book"
-                            <c:if test="${book.availableCopiesAmount > 0}"> onclick="location.href='${getBook}'"</c:if>
-                    ></span>
-
-                </td>
-
+                            <span class='fa fa-remove' style="margin-left: 10px; color: red;" title="Delete"
+                                  onclick="location.href='${deleteUrl}'"></span>
+                        </sec:authorize>
+                        <span class='fa fa-plus'
+                              style='margin-left: 10px; ${book.availableCopiesAmount > 0 ? "color: slateblue;":""}'
+                              title="Get Book"
+                                <c:if test="${book.availableCopiesAmount > 0}"> onclick="location.href='${getBook}'"</c:if>
+                        ></span>
+                    </td>
+                </sec:authorize>
             </tr>
         </c:forEach>
         </tbody>
