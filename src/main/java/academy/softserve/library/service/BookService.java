@@ -40,5 +40,5 @@ public interface BookService {
 
     void reserve(Long userId, Long bookId);
 
-    void returnBook(Long userId, Long bookId);
+    void returnBook(long userId, long bookId);
 }
