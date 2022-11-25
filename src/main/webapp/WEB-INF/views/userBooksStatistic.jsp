@@ -28,6 +28,7 @@
             <th>Title</th>
             <th>Status</th>
             <th>Days</th>
+            <th>Return</th>
         </tr>
         <tbody>
         <c:forEach items="${listRequest}" var="request">
@@ -35,6 +36,14 @@
                 <td>${request.title}</td>
                 <td>${request.isRead ? "Complited" : "In progress"}</td>
                 <td>${request.day}</td>
+                <c:choose>
+                    <c:when test="${request.isRead}">
+                        <td>Returned</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><a href="/books/return/${request.bookId}">Return</a></td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </c:forEach>
         </tbody>

@@ -37,4 +37,8 @@ public interface BookService {
     Book update(Book book);
 
     boolean remove(Long id);
+
+    void reserve(Long userId, Long bookId);
+
+    void returnBook(Long userId, Long bookId);
 }

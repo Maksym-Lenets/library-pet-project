@@ -1,8 +1,13 @@
 package academy.softserve.library.service.impl;
 
 import academy.softserve.library.model.Book;
+import academy.softserve.library.model.BookInstance;
+import academy.softserve.library.model.Request;
+import academy.softserve.library.model.Status;
 import academy.softserve.library.repository.BookInstanceRepository;
 import academy.softserve.library.repository.BookRepository;
+import academy.softserve.library.repository.RequestRepository;
+import academy.softserve.library.repository.UserRepository;
 import academy.softserve.library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +22,16 @@ public class BookServiceImpl implements BookService {
     private static final Integer DEFAULT_NUMBER_OF_RECORDS = 10;
 
     private BookRepository bookRepository;
-
+    private RequestRepository requestRepository;
     private BookInstanceRepository bookInstanceRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, BookInstanceRepository bookInstanceRepository) {
+    public BookServiceImpl(BookRepository bookRepository, RequestRepository requestRepository, BookInstanceRepository bookInstanceRepository, UserRepository userRepository) {
         this.bookRepository = bookRepository;
+        this.requestRepository = requestRepository;
         this.bookInstanceRepository = bookInstanceRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -123,5 +131,38 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public boolean remove(Long id) {
         return bookRepository.remove(id);
+    }
+
+    @Override
+    @Transactional
+    public void reserve(Long userId, Long bookId) {
+        Book availableBooks = get(bookId);
+        Request request = new Request();
+        request.setRequestDate(LocalDate.now());
+        request.setGetBookDate(LocalDate.now());
+        request.setShouldBeReturn(LocalDate.now().plusMonths(1));
+        request.setUser(userRepository.get(userId));
+        for (BookInstance item : availableBooks.getInstances()){
+            if(item.getStatus() == Status.AVAILABLE){
+                item.setStatus(Status.UNAVAILABLE);
+                request.setBookInstance(item);
+                if(availableBooks.getInstances().size() == 1){
+                    item.setStatus(Status.UNAVAILABLE);
+                }
+                break;
+            }
+        }
+        requestRepository.saveOrUpdate(request);
+
+    }
+
+    @Override
+    @Transactional
+    public void returnBook(Long userId, Long bookId) {
+        Request request = requestRepository.getNotReturnedByUserAndBookId(userId, bookId);
+        request.setReturnBookDate(LocalDate.now());
+        request.getBookInstance().setStatus(Status.AVAILABLE);
+        request.getBookInstance().getBook().setStatus(Status.AVAILABLE);
+
     }
 }

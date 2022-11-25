@@ -98,7 +98,7 @@
                     <td>
                         <spring:url value="/books/edit/${book.id}" var="updateUrl"/>
                         <spring:url value="/books/remove/${book.id}" var="deleteUrl"/>
-                        <spring:url value="/books/get/${book.id}" var="getBook"/>
+                        <spring:url value="/books/reserve/${book.id}" var="getBook"/>
 
                         <sec:authorize access="hasRole('MANAGER')">
                             <span class='fa fa-pencil' style="margin-left: 10px; color: limegreen;" title="Update"

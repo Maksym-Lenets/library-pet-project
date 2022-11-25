@@ -35,7 +35,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/books/statistic">Books</a>
-                        <a class="dropdown-item" href="#">Users</a>
+<%--                        <a class="dropdown-item" href="#">Users</a>--%>
                         <a class="dropdown-item" href="/readers/statistic">Readers</a>
                         <a class="dropdown-item" href="/users/not_returned_book/statistic">Overdue readers</a>
                     </div>
