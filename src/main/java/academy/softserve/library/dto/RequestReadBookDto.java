@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RequestReadBookDto{
     String title;
+    Long bookId;
     Boolean isRead;
     Long day;
 }

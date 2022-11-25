@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -80,9 +81,9 @@ public class UserController {
         return "books";
     }
 
-    @GetMapping("/users/{userId}/books/statistic")
-    public String getAllReadBooks(@PathVariable Long userId, Model model) {
-        List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userId);
+    @GetMapping("/users/books/statistic")
+    public String getAllReadBooks(Principal principal, Model model) {
+        List<RequestReadBookDto> requests = requestService.getAllSuccessfulByUserId(userService.getUserByEmail(principal.getName()).getId());
         model.addAttribute("listRequest", requests);
         return "userBooksStatistic";
     }
@@ -109,6 +110,7 @@ public class UserController {
         model.addAttribute("endDate", endDate);
         return "readersStatistic";
     }
+
 }
 //package academy.softserve.library.controller;
 //

@@ -115,9 +115,14 @@ public class DtoUtil {
 
     public static RequestReadBookDto toRequestReadBookDto(Request request){
         RequestReadBookDto requestReadBookDto = new RequestReadBookDto();
-        requestReadBookDto.setTitle(request.getBookInstance().getBook().getTitle());
+        Book book = request.getBookInstance().getBook();
+        requestReadBookDto.setTitle(book.getTitle());
+        requestReadBookDto.setBookId(book.getId());
+
         boolean isRead = request.getReturnBookDate() != null;
+
         requestReadBookDto.setIsRead(isRead);
+
         LocalDate begin = request.getGetBookDate();
         LocalDate end = isRead ? request.getReturnBookDate() : LocalDate.now();
 

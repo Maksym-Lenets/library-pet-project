@@ -1,6 +1,7 @@
 package academy.softserve.library.repository.hibernate;
 
 import academy.softserve.library.model.Request;
+import academy.softserve.library.model.Status;
 import academy.softserve.library.repository.RequestRepository;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -64,6 +65,20 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
         Session session = sessionFactory.getCurrentSession();
         List<Request> list = session.createQuery("FROM Request WHERE getBookDate != null AND (returnBookDate = null OR shouldBeReturn < returnBookDate)").list();
         return list;
+    }
+
+    @Override
+    public Request getNotReturnedByUserAndBookId(Long userId, Long bookId) {
+        Status status = Status.UNAVAILABLE;
+
+        Session session = sessionFactory.getCurrentSession();
+        String hpl = "FROM Request WHERE user.id = :userId AND bookInstance.book.id = :bookId AND bookInstance.status = :bookStatus";
+        Request request = (Request) session.createQuery(hpl)
+                .setParameter("userId", userId)
+                .setParameter("bookId", bookId)
+                .setParameter("bookStatus", status)
+                .list().get(0);
+        return request;
     }
 
     @Override

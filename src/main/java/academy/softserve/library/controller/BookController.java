@@ -5,9 +5,11 @@ import academy.softserve.library.dto.BookDto;
 import academy.softserve.library.model.Author;
 import academy.softserve.library.model.Book;
 import academy.softserve.library.model.Status;
+import academy.softserve.library.model.User;
 import academy.softserve.library.service.AuthorService;
 import academy.softserve.library.service.BookInstanceService;
 import academy.softserve.library.service.BookService;
+import academy.softserve.library.service.UserService;
 import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -25,14 +28,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/books")
 public class BookController {
     private BookService bookService;
+    private UserService userService;
 
     private AuthorService authorService;
 
     private BookInstanceService bookInstanceService;
 
     @Autowired
-    public BookController(BookService bookService, AuthorService authorService, BookInstanceService bookInstanceService) {
+    public BookController(BookService bookService, UserService userService, AuthorService authorService, BookInstanceService bookInstanceService) {
         this.bookService = bookService;
+        this.userService = userService;
         this.authorService = authorService;
         this.bookInstanceService = bookInstanceService;
     }
@@ -198,5 +203,19 @@ public class BookController {
 
 
         return "booksStatistic";
+    }
+
+    @GetMapping("/reserve/{bookId}")
+    public String reserve(@PathVariable Long bookId, Principal principal){
+        Long userId = userService.getUserByEmail(principal.getName()).getId();
+        bookService.reserve(userId, bookId);
+        return "redirect:/books/1";
+    }
+
+    @GetMapping("/return/{bookId}")
+    public String returnBook(@PathVariable Long bookId, Principal principal){
+        Long userId = userService.getUserByEmail(principal.getName()).getId();
+        bookService.returnBook(userId, bookId);
+        return "redirect:/users/books/statistic";
     }
 }

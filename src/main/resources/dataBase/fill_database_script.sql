@@ -5,14 +5,14 @@ USE library;
 -- USER
 INSERT INTO `library`.`user` (`id`, `first_name`, `last_name`, `password`, `email`, `birthday`, `date_of_registration`,
                               `role`)
-VALUES ('1', 'Андрій', 'Мельник', '1234', 'a@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER'),
-       ('2', 'Петро', 'Швець', '1234', 'b@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER'),
-       ('3', 'Андрій', 'Кравець', '1234', 'c@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
-       ('4', 'Олександр', 'Боднар', '1234', 'd@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
-       ('5', 'Сергій', 'Ведмідь', '1234', 'e@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
-       ('6', 'Олександра', 'Зима', '1234', 'f@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
-       ('7', 'Марина', 'Візник', '1234', 'g@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
-       ('8', 'Максим', 'Ковач', '1234', 'h@gmail.com', '2000-05-06', '2022-10-19', 'READER');
+VALUES ('1', 'Андрій', 'Мельник', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'a@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER'),
+       ('2', 'Петро', 'Швець', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'b@gmail.com', '2000-05-06', '2022-10-19', 'MANAGER'),
+       ('3', 'Андрій', 'Кравець', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'c@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
+       ('4', 'Олександр', 'Боднар', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'd@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
+       ('5', 'Сергій', 'Ведмідь', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'e@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
+       ('6', 'Олександра', 'Зима', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'f@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
+       ('7', 'Марина', 'Візник', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'g@gmail.com', '2000-05-06', '2022-10-19', 'READER'),
+       ('8', 'Максим', 'Ковач', '$2a$10$eT4IHiLzmaZTKxB/2TFj6.eFjcyIkccFh.xeis7HvhGQeKDkHhUaG', 'h@gmail.com', '2000-05-06', '2022-10-19', 'READER');
 
 -- AUTHOR
 INSERT INTO `library`.`author` (`id`, `first_name`, `last_name`)

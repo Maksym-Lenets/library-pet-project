@@ -8,13 +8,12 @@ import academy.softserve.library.repository.UserRepository;
 import academy.softserve.library.service.UserService;
 import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,11 +24,13 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RequestRepository requestRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RequestRepository requestRepository) {
+    public UserServiceImpl(UserRepository userRepository, RequestRepository requestRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.requestRepository = requestRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
