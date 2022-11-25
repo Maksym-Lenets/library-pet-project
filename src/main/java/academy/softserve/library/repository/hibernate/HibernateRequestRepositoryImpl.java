@@ -72,7 +72,7 @@ public class HibernateRequestRepositoryImpl implements RequestRepository {
         Status status = Status.UNAVAILABLE;
 
         Session session = sessionFactory.getCurrentSession();
-        String hpl = "FROM Request WHERE user.id = :userId AND bookInstance.book.id = :bookId AND bookInstance.status = :bookStatus";
+        String hpl = "FROM Request WHERE user.id = :userId AND bookInstance.book.id = :bookId AND bookInstance.status = :bookStatus AND returnBookDate = null";
         Request request = (Request) session.createQuery(hpl)
                 .setParameter("userId", userId)
                 .setParameter("bookId", bookId)

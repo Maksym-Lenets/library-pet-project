@@ -158,11 +158,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public void returnBook(Long userId, Long bookId) {
+    public void returnBook(long userId, long bookId) {
         Request request = requestRepository.getNotReturnedByUserAndBookId(userId, bookId);
         request.setReturnBookDate(LocalDate.now());
         request.getBookInstance().setStatus(Status.AVAILABLE);
         request.getBookInstance().getBook().setStatus(Status.AVAILABLE);
-
     }
 }

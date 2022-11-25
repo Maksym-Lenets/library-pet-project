@@ -84,7 +84,7 @@
         <c:forEach items="${listBooks}" var="book">
             <tr>
                 <td>${book.id}</td>
-                <td><a href="/edit/${book.id}" target="_blank">${book.title}</a></td>
+                <td><%--<a href="/edit/${book.id}" target="_blank">--%>${book.title}<%--</a>--%></td>
                 <td>${book.author.fullName}</td>
 
                 <td>
