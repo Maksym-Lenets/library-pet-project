@@ -29,9 +29,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.csrf()
                 .disable()
-//                .authorizeRequests()
-//                .antMatchers("/books/{id}", "/register", "/books").permitAll()
+               .authorizeRequests()
+              .antMatchers("/books/{page}", "/books", "favicon.ico").permitAll()
 //                .anyRequest().authenticated()
+                .and()
                 .authenticationProvider(authenticationProvider())
                 .formLogin()
 //                .permitAll()
