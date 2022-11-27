@@ -18,7 +18,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
+@Controller("/user")
 public class UserController {
     private UserService userService;
     private RequestService requestService;
