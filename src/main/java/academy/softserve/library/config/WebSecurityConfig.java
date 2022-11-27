@@ -34,21 +34,9 @@ public class WebSecurityConfig {
                 .disable()
                 .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/webjars/**", "/favicon.ico", "/**/*.css", "/**/*.js").permitAll()
-                .mvcMatchers( "/books/{page}",  "/books", "/user/register", "/user/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/webjars/**", "/favicon.ico", "/**/*.css", "/**/*.js").permitAll()
+                .mvcMatchers(HttpMethod.GET, "/books/{page}", "/books", "/user/register", "/user/login").permitAll()
                 .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/books")
-                .and()
-                .httpBasic()
-                .and().build();
-
-        /* .anyRequest().authenticated()
-                .and()
-
                 .formLogin()
                 .loginPage("/user/login")
                 .permitAll()
@@ -60,30 +48,10 @@ public class WebSecurityConfig {
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/books")
-
-                .and().build();
-*/
-
-       /* return http.csrf()
-                .disable()
-               .authorizeRequests()
-              .antMatchers("/books/{page}", "/books", "favicon.ico").permitAll()
-//                .anyRequest().authenticated()
-                .and()
-                .authenticationProvider(authenticationProvider())
-                .formLogin()
-//                .permitAll()
-                .loginProcessingUrl("/user/post/login")
-                .defaultSuccessUrl("/books/1", true)
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/books/1")
                 .and()
                 .httpBasic()
-                .and().build();*/
+                .and().build();
+
     }
 
     @Bean
