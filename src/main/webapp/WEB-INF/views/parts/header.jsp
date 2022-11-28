@@ -46,7 +46,7 @@
             <%--            </li>--%>
         </ul>
         <div class="text-end">
-            <sec:authorize access="!isAuthenticated()">
+            <sec:authorize access="isAnonymous()">
                 <span id="login">
                     <a href="login">
                         <button type="button" class="btn btn-warning ">Login</button>

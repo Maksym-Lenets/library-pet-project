@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,14 @@ public class AppRestController {
     }
 
     @GetMapping(value = "/allAuthors", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_MANAGER")
     public ResponseEntity<List<AuthorDto>> getAllAuthors() {
         List<AuthorDto> authors = DtoUtil.toAuthorDtoList(authorService.getAll());
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
     @PostMapping(value = "/author", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("ROLE_MANAGER")
     public ResponseEntity<AuthorDto> createAuthor(AuthorDto authorDto) {
         Author author = authorService.saveOrUpdate(DtoUtil.toAuthor(authorDto, new Author()));
         return new ResponseEntity<>(DtoUtil.toAuthorDto(author), HttpStatus.OK);

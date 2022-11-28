@@ -13,6 +13,7 @@ import academy.softserve.library.service.UserService;
 import academy.softserve.library.util.DtoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -103,6 +104,7 @@ public class BookController {
 
     //TODO
     @GetMapping("/book/{id}")
+    @Secured({"ROLE_MANAGER", "ROLE_READER"})
     public String getById(@PathVariable("id") Long id, Model model) {
         BookDto book = DtoUtil.toBookDto(bookService.get(id));
         model.addAttribute("book", book);
@@ -111,12 +113,14 @@ public class BookController {
 
 
     @GetMapping("/remove/{id}")
+    @Secured("ROLE_MANAGER")
     public String removeBook(@PathVariable("id") Long id) {
         this.bookService.remove(id);
         return "redirect:/books";
     }
 
     @GetMapping("/edit/{id}")
+    @Secured("ROLE_MANAGER")
     public String editBook(@PathVariable("id") Long id, Model model) {
         BookDto bookDto = DtoUtil.toBookDto(bookService.get(id));
         List<AuthorDto> authors = DtoUtil.toAuthorDtoList(authorService.getAll());
@@ -126,6 +130,7 @@ public class BookController {
     }
 
     @GetMapping("/create")
+    @Secured("ROLE_MANAGER")
     public String createBook(Model model) {
         BookDto bookDto = new BookDto();
         List<AuthorDto> authors = DtoUtil.toAuthorDtoList(authorService.getAll());
@@ -135,6 +140,7 @@ public class BookController {
     }
 
     @PostMapping("/save")
+    @Secured("ROLE_MANAGER")
     public String save(@ModelAttribute("book") BookDto bookDto) {
         Book book;
 
@@ -182,6 +188,7 @@ public class BookController {
     }
 
     @GetMapping("/statistic")
+    @Secured("ROLE_MANAGER")
     public String statistic(@RequestParam(value = "startDate", required = false)
                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                             @RequestParam(value = "endDate", required = false)
@@ -206,6 +213,7 @@ public class BookController {
     }
 
     @GetMapping("/reserve/{bookId}")
+    @Secured({"ROLE_READER", "ROLE_MANAGER"})
     public String reserve(@PathVariable Long bookId, Principal principal){
         Long userId = userService.getUserByEmail(principal.getName()).getId();
         bookService.reserve(userId, bookId);
@@ -213,6 +221,7 @@ public class BookController {
     }
 
     @GetMapping("/return/{bookId}")
+    @Secured({"ROLE_READER", "ROLE_MANAGER"})
     public String returnBook(@PathVariable Long bookId, Principal principal){
         Long userId = userService.getUserByEmail(principal.getName()).getId();
         bookService.returnBook(userId, bookId);

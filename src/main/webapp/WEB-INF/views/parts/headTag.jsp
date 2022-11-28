@@ -14,6 +14,9 @@
    <%-- <meta name="_csrf" content="${_csrf.token}"/>
     <meta name="_csrf_header" content="${_csrf.headerName}"/>--%>
 
+    <link rel="shortcut icon" type="image/x-icon" href="resources/favicon.ico" />
+<%--    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico" />--%>
+
     <base href="${pageContext.request.contextPath}/"/>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
