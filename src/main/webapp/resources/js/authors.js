@@ -23,6 +23,6 @@ function saveAuthor() {
         data: form.serialize()
     }).done(function (data) {
         $("#editRow").modal("hide");
-        authorsArr.add(data);
+        authorsArr.push(data);
     });
 }

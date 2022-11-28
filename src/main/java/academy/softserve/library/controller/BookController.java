@@ -213,7 +213,7 @@ public class BookController {
     }
 
     @GetMapping("/reserve/{bookId}")
-    @Secured("ROLE_READER")
+    @Secured({"ROLE_READER", "ROLE_MANAGER"})
     public String reserve(@PathVariable Long bookId, Principal principal){
         Long userId = userService.getUserByEmail(principal.getName()).getId();
         bookService.reserve(userId, bookId);
@@ -221,7 +221,7 @@ public class BookController {
     }
 
     @GetMapping("/return/{bookId}")
-    @Secured("ROLE_READER")
+    @Secured({"ROLE_READER", "ROLE_MANAGER"})
     public String returnBook(@PathVariable Long bookId, Principal principal){
         Long userId = userService.getUserByEmail(principal.getName()).getId();
         bookService.returnBook(userId, bookId);
